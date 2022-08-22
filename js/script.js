@@ -14,12 +14,12 @@ window.onscroll = function retraer_nav () {
 
 
 // función de copiado en el porta papeles.
-function copiarAlPortapapeles(id_elemento) {
-    var aux = document.createElement("input");
-    aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
-    document.body.appendChild(aux);
-    aux.select();
-    document.execCommand("copy");
-    document.body.removeChild(aux);
-    alert('Enlace copiado.');
-}
+// function copiarAlPortapapeles(id_elemento) {
+//     var aux = document.createElement("input");
+//     aux.setAttribute("value", document.getElementById(id_elemento).innerHTML);
+//     document.body.appendChild(aux);
+//     aux.select();
+//     document.execCommand("copy");
+//     document.body.removeChild(aux);
+//     alert('Enlace copiado.');
+// }
