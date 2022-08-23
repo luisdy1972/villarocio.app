@@ -24,15 +24,14 @@ let cardAnciano = `
 let feedAncianos = document.getElementById('feed-ancianos')
 
 class anciano {
-    constructor(ID, foto, nombre, responsabilidad, btCopiar, btInforme, btAgenda, btTerritorio) {
+    constructor(ID, foto, nombre, responsabilidad, linkInforme, linkAgenda, linkTerritorio) {
         this.ID = ID;
         this.foto = foto;
         this.nombre = nombre;
         this.responsabilidad = responsabilidad;
-        this.btCopiar = btCopiar;
-        this.btInforme = btInforme;
-        this.btAgenda = btAgenda;
-        this.btTerritorio = btTerritorio;
+        this.linkInforme = linkInforme;
+        this.linkAgenda = linkAgenda;
+        this.linkTerritorio = linkTerritorio;
     }
 }
 
@@ -42,7 +41,6 @@ feedAncianos.innerHTML = cardAnciano;
 
 let btCopiar = document.getElementById('bt-copiar');
 btCopiar.addEventListener('click',copiarPP);
-
 
 function copiarPP() {
     
