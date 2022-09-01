@@ -23,7 +23,7 @@ let jose = new anciano('p4', avatar, 'José Novoa', 'Anciano de Congregación', 
 let rodrigo = new anciano('p5', avatar, 'Rodrigo Villalba', 'Atalaya', 'https://docs.google.com/spreadsheets/d/1Hg4oawsDyxiAmsV5BPBrJCWhBjPkQzMv8D3vkuEMUtU/edit?usp=sharing', 'https://docs.google.com/spreadsheets/d/16teflqeUkAmNUkIr0jciWJcQCmuHLfpn-xLggo1MF2E/edit')
 let jairo = new anciano('p6', avatar, 'Jairo Villalba', 'Vida y Ministerio', 'https://docs.google.com/spreadsheets/d/1hp1T2iJRlMa24HQbPIzvp002VZk4erQtpU3ri6oXrNM/edit', 'https://docs.google.com/spreadsheets/d/1zzdFI86hw3OBCHiKVJjCCyLVFLD8y0DY-cmsTrzJMWc/edit')
 let eliecer = new anciano('p7', avatar, 'Eliecer Velasquez', 'Anciano de Congregación', 'https://docs.google.com/spreadsheets/d/15tWmAB7zr0RT-kuDyWyVZOl_c1gP421uff1xv_wRLjw/edit', 'https://docs.google.com/spreadsheets/d/1fggBG4xalMkk1exW_pb8Sdx80h7gP4DUfHhrKinvEf8/edit#gid=1386834576')
-let miguel = new anciano('p7', avatar, 'Miguel Geney', 'Anciano de congragación', '', 'https://docs.google.com/spreadsheets/d/15p8njbaE1YOXcZ7DYopzRLSxuLMMEGFvs5xwfkPwEoY/edit#gid=1386834576')
+let miguel = new anciano('p7', avatar, 'Miguel Geney', 'Anciano de congragación', '#', 'https://docs.google.com/spreadsheets/d/15p8njbaE1YOXcZ7DYopzRLSxuLMMEGFvs5xwfkPwEoY/edit#gid=1386834576')
 let cuerpoAncianos = []
 cuerpoAncianos.push(cesar, wilmer, melquiades, rodrigo, jairo, jose, eliecer, miguel)
 
