@@ -56,5 +56,3 @@ cuerpoAncianos.forEach((anciano) => {
 	`
 	feedLinks.innerHTML += linkInvisible
 })
-
-let alertCopi = `<div class="alert alert-primary alert-copi" role="alert">¡Enlace copiado!</div>`

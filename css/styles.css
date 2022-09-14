@@ -3,13 +3,10 @@
     margin-left: 2rem;
 }
 
-
 .link-titulo {
     text-decoration: none;
     color: black;
 }
-
-
 
 h1 {
     font-size: 1.3rem;
@@ -19,7 +16,6 @@ h1 {
     border-radius: 1%;
     width: 17rem;
 }
-
 
 .imagen-mapa {
     max-width: 100%;
@@ -58,7 +54,6 @@ h1 {
   height: 10rem;
 }
 
-
 .btn-flotante {
     background-color: #eff1fc;
     padding: 1rem;
@@ -75,13 +70,17 @@ h1 {
 	transform: translateY(-7px);
 }
 
-.alert-copi{
-    max-height: max-content;
-    max-width: max-content;
-	transform: translateY(-7px);
-
-}
-
 .link-drive {
     height: 2rem;
+}
+
+.oculto{
+    display: none;
+}
+
+.alertas{
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
 }
