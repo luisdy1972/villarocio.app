@@ -30,13 +30,10 @@ cuerpoAncianos.push(cesar, wilmer, melquiades, rodrigo, jairo, jose, eliecer, mi
 let cardsAnciano
 cuerpoAncianos.forEach((anciano) => {
 	cardsAnciano = `
-	<div class="card shadow">
-		<ul class="nav">
-			<li>
-				<a class="btn btn-secondary mt-2" onclick="copiarAlPortapapeles('${anciano.ID}')">Copiar
-				</a>
-			</li>
-		</ul>
+	<div class="card shadow ">
+		<div class="nav">
+				<div class="btn btn-secondary mt-2 top-50 start-50" onclick="copiarAlPortapapeles('${anciano.ID}')">Copiar</div>
+		</div>
 		<img src="${anciano.avatar}"/>
 		<div class="card-body bodybotones">
 			<h5 class="card-title">${anciano.nombre}</h5>
