@@ -80,7 +80,7 @@ h1 {
 
 .alertas{
     position: fixed;
-    width: 100%;
+    width: 50%;
     text-align: center;
     z-index: 1;
 }
