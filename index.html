@@ -12,14 +12,18 @@
 	<link rel="stylesheet" href="css/styles.css" />
 </head>
 <body id="general">
+
 	<div class="oculto position-fixed" id="alertas">
 		<div class="alert alert-success shadow start-50" role="alert">
-			<h4 class="alert-heading">Texto Copiado</h4>
+			<div class="row">
+				<h4 class="alert-heading col-11">Enlace Copiado</h4>
+				<button id="botonCerrar" type="button" class="btn-close col" aria-label="Close"></button>
+			</div>
 			<hr>
-			<p>Listo para Pegar</p>
-			<button id="botonCerrar" type="button" class="btn-close" aria-label="Close"></button>
+			<p>Enlace del informe de grupo copiado en el portapapeles.</p>
 		</div>
 	</div>
+
 	<script src="js/headerVillarocio.js"></script>
 	<!-- Acordeón -->
 	<div class="accordion accordion-flush container margen-sup" id="accordionFlushExample">
