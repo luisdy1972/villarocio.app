@@ -49,7 +49,7 @@ cuerpoAncianos.forEach((anciano) => {
 let linkInvisible
 cuerpoAncianos.forEach((anciano) => {
 	linkInvisible = `
-	<div id="${anciano.ID}">${anciano.linkInforme}</div>
+	<div id="${anciano.ID}">${anciano.linkAgenda}</div>
 	`
 	feedLinks.innerHTML += linkInvisible
 })
