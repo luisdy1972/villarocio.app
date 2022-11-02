@@ -25,7 +25,7 @@ let jairo = new anciano('p6', avatar, 'Jairo Villalba', 'Vida y Ministerio', 'ht
 let eliecer = new anciano('p7', avatar, 'Eliecer Velasquez', 'Anciano de Congregación', 'https://docs.google.com/spreadsheets/d/15tWmAB7zr0RT-kuDyWyVZOl_c1gP421uff1xv_wRLjw/edit', 'https://docs.google.com/spreadsheets/d/1fggBG4xalMkk1exW_pb8Sdx80h7gP4DUfHhrKinvEf8/edit#gid=1386834576')
 let miguel = new anciano('p7', avatar, 'Miguel Geney', 'Anciano de congragación', '#', 'https://docs.google.com/spreadsheets/d/15p8njbaE1YOXcZ7DYopzRLSxuLMMEGFvs5xwfkPwEoY/edit#gid=1386834576')
 let cuerpoAncianos = []
-cuerpoAncianos.push(cesar, wilmer, melquiades, rodrigo, jairo, jose, eliecer, miguel)
+cuerpoAncianos.push(cesar, wilmer, melquiades, rodrigo, jairo, jose, miguel)
 
 let cardsAnciano
 cuerpoAncianos.forEach((anciano) => {
