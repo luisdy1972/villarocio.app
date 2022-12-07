@@ -1,5 +1,7 @@
-function headerVillarocio() {
-    document.write(`<div id="barraDeNavegacion" class="fixed-top">
+function drawHeader() {
+    const headerHome = document.getElementById('header')
+    console.log('hola',headerHome);
+    main = `<div id="barraDeNavegacion" class="fixed-top">
     <nav class="navbar navbar-expand-lg bg-light shadow mb-4">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
@@ -48,6 +50,7 @@ function headerVillarocio() {
             </div>
         </div>
     </nav>
-</div>`)
+</div>`
+headerHome.innerHTML = main
 }
-headerVillarocio();
+drawHeader()
