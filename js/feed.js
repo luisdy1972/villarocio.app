@@ -30,7 +30,7 @@ let jabesHoyos = new hermano('p10', '', 'Jabes Hoyos', 'Siervo Ministerial', '',
 let manuelGonzalez = new hermano('p11', '', 'Manuel Gonzalez', 'Siervo Ministerial', '', '#',)
 
 let ancianos = []
-ancianos.push(cesar, wilmer, melquiades, rodrigo, jairo, jose, miguel)
+ancianos.push(miguel, jairo, cesar, wilmer, jose, rodrigo, melquiades)
 
 let ministeriales = []
 ministeriales.push(luisAyala, jabesHoyos, manuelGonzalez)
