@@ -14,7 +14,13 @@ h1 {
 
 .card {
     border-radius: 1%;
-    width: 17rem;
+    width: 20rem;
+}
+
+.calendarioMinisteriales {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
 }
 
 .imagen-mapa {

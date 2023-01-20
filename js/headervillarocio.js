@@ -1,7 +1,6 @@
 function drawHeader() {
-    const headerHome = document.getElementById('header')
-    console.log('hola',headerHome);
-    main = `<div id="barraDeNavegacion" class="fixed-top">
+	const headerHome = document.getElementById("header")
+	main = `<div id="barraDeNavegacion" class="fixed-top">
     <nav class="navbar navbar-expand-lg bg-light shadow mb-4">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
@@ -51,6 +50,6 @@ function drawHeader() {
         </div>
     </nav>
 </div>`
-headerHome.innerHTML = main
+	headerHome.innerHTML = main
 }
 drawHeader()
