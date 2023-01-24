@@ -119,8 +119,6 @@ let manuelGonzalez = new hermano(
 	"",
 	"#"
 )
-console.log(luisAyala.linkCalendario)
-
 let ancianos = []
 ancianos.push(miguel, jairo, cesar, wilmer, jose, rodrigo, melquiades)
 
@@ -159,28 +157,33 @@ ministeriales.forEach((ministerial) => {
 	if (ministerial.linkCalendario) {
 		cardsMinsteriales = `
 		<div class="col-sm-12 card shadow">
-		<div class="card-body">
-			<h5 class="card-title">${ministerial.nombre}</h5>
-			<p class="card-text">${ministerial.responsabilidad}</p>
-			<a href="${ministerial.linkAgenda}"
-				rel="noopener noreferrer" target="_blank" class="btn btn-primary">Agenda</a>
-		</div>
-		<div class="calendarioMinisteriales">
-		${ministerial.linkCalendario}
-		</div>
-	</div>`
+			<div class="card-body">
+				<h5 class="card-title">${ministerial.nombre}</h5>
+				<p class="card-text">${ministerial.responsabilidad}</p>
+				<div class="btn-group">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Agenda
+					</button>
+					<ul class="dropdown-menu">
+					${ministerial.linkCalendario}
+					</ul>
+				</div>
+				<a href="${ministerial.linkAgenda}"
+					rel="noopener noreferrer" target="_blank" class="btn btn-primary">Agenda 2022
+				</a>
+			</div>
+		</div>`
 	} else {
 		cardsMinsteriales = `
 		<div class="col-sm-12 card shadow">
-		<div class="card-body">
-			<h5 class="card-title">${ministerial.nombre}</h5>
-			<p class="card-text">${ministerial.responsabilidad}</p>
-			<a href="${ministerial.linkAgenda}"
-				rel="noopener noreferrer" target="_blank" class="btn btn-primary">Agenda</a>
-		</div>
-	</div>`
+			<div class="card-body">
+				<h5 class="card-title">${ministerial.nombre}</h5>
+				<p class="card-text">${ministerial.responsabilidad}</p>
+				<a href="${ministerial.linkAgenda}"
+					rel="noopener noreferrer" target="_blank" class="btn btn-primary">Agenda</a>
+			</div>
+		</div>`
 	}
 
 	feedMinisteriales.innerHTML += cardsMinsteriales
 })
-// fucion
