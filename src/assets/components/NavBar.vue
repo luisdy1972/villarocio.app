@@ -4,12 +4,11 @@
 	<div>
 		<nav class="navbar bg-body-tertiary fixed-top shadow">
 			<div class="container-fluid">
+				<img class="logoVR" src="../../../public/img/favicon.png" />
 				<a class="titulo-principal" href="#">
 					<h1>Villa Rocío</h1>
 				</a>
-				<a class="" href="#">
-					<img class="logoVR" src="../../../public/img/favicon.png" />
-				</a>
+
 				<button
 					class="navbar-toggler"
 					type="button"
