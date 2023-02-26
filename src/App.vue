@@ -12,6 +12,7 @@ import Carousel from "./assets/components/Carousel.vue";
 			<h2>Herramientas</h2>
 			<MapImg />
 		</article>
+		<div class="container"></div>
 	</div>
 </template>
 

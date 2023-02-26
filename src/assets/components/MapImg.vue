@@ -32,7 +32,4 @@
 		</div>
 	</div>
 </template>
-<style scoped>
-.img-territorio {
-}
-</style>
+<style scoped></style>
