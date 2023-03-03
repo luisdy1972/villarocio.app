@@ -1,10 +1,10 @@
 function drawHeader() {
-	const headerHome = document.getElementById("header")
+	const headerHome = document.getElementById("header");
 	main = `<div id="barraDeNavegacion" class="fixed-top">
     <nav class="navbar navbar-expand-lg bg-light shadow mb-4">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
-                <img id="logo-principal" src="img/Agenda-logo.png" alt="">
+                <img id="logo-principal" src="img/agenda-logo.png" alt="">
                 <a class="link-titulo" href="index.html">
                     <h1 class="me-5">Villa Rocío</h1>
                 </a>
@@ -49,7 +49,7 @@ function drawHeader() {
             </div>
         </div>
     </nav>
-</div>`
-	headerHome.innerHTML = main
+</div>`;
+	headerHome.innerHTML = main;
 }
 drawHeader()
