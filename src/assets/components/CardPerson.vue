@@ -14,8 +14,8 @@ const props = defineProps({
     <div class="card-body">
       <h5 class="card-title">{{ props.nombre }}</h5>
       <p class="card-text">{{ props.responsabilidad }}</p>
-      <a :href="props.linkInforme" class="btn btn-primary m-1">Informe</a>
-      <a :href="props.linkAgenda" class="btn btn-primary m-1">Agenda</a>
+      <a :href="props.linkInforme" target="_blank" class="btn btn-primary m-1">Informe</a>
+      <a :href="props.linkAgenda" target="_blank" class="btn btn-primary m-1">Agenda</a>
     </div>
   </div>
 </template>
@@ -23,5 +23,6 @@ const props = defineProps({
 <style scoped>
 .card-person {
   max-width: 400px;
+  min-width: 250px;
 }
 </style>
