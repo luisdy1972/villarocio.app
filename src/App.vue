@@ -40,6 +40,10 @@ onMounted(() => {
           :linkAgenda="anciano.linkAgenda" />
       </div>
     </section>
+    <section class="container">
+      <h2 class="p-4"> Arreglos de conferencias</h2>
+      <p>En proceso...</p>
+    </section>
   </div>
 </template>
 
