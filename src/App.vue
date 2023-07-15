@@ -45,7 +45,10 @@ onMounted(() => {
       <p>En proceso...</p>
     </section>
   </div>
+<div>
+</div>
 </template>
+  
 
 <style scoped>
 .contenedor-principal {
