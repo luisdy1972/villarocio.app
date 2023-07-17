@@ -5,10 +5,12 @@
 		<nav class="navbar bg-body-tertiary fixed-top shadow">
 			<div class="container-fluid">
 				<img class="logoVR" src="../../../public/img/favicon.png" />
-				<router-link class="titulo-principal" to="/">
+				<a
+					href="https://villarocio.netlify.app/"
+					style="text-decoration: none; color: black"
+				>
 					<h1>Villa Rocío</h1>
-				</router-link>
-
+				</a>
 				<button
 					class="navbar-toggler"
 					type="button"
@@ -37,19 +39,7 @@
 					</div>
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="#"
-									>Añadir Grupo</a
-								>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="#">Añadir 🤵🏻</a>
-							</li>
-							<li>
-								<router-link class="titulo-principal" to="/about">
-									About
-								</router-link>
-							</li>
+							<li class="nav-item">En proceso...</li>
 						</ul>
 					</div>
 				</div>

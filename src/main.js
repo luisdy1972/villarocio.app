@@ -7,14 +7,20 @@ import App from './App.vue'
 
 // componenetes
 import Home from './assets/components/Home.vue'
-import About from './assets/components/About.vue'
+import Ancianos from './assets/components/Ancianos.vue'
+import Ministeriales from './assets/components/Ministeriales.vue'
 
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
-		{ path: '/', component: Home },
-		{ path: '/home', component: Home },
-		{ path: '/about', component: About },
+		{
+			path: '/',
+			component: Home,
+			children: [
+				{ path: '/ministeriales', component: Ministeriales },
+				{ path: '/ancianos', component: Ancianos },
+			],
+		},
 	],
 })
 
