@@ -3,15 +3,15 @@ import { ref, onMounted } from 'vue'
 // librerias
 
 import axios from 'axios'
-import rutas from '../js/rutasBD.js'
+import rutas from '@/assets/js/rutasBD'
 
-const ancianos = ref([''])
+const ministeriales = ref([''])
 
 onMounted(() => {
 	axios
-		.get(rutas.ancianos)
+		.get(rutas.ministeriales)
 		.then(function (res) {
-			ancianos.value = res.data
+			ministeriales.value = res.data
 		})
 		.catch(function (err) {
 			console.error(err)
@@ -22,13 +22,13 @@ onMounted(() => {
 	<ul class="list-group list-group-flush">
 		<div class="list-group-item">
 			<a
-				v-for="anciano in ancianos"
+				v-for="ministeriale in ministeriales"
 				type="button"
 				class="list-group-item list-group-item-action"
 				target="_blank"
-				:href="anciano.linkAgenda"
+				:href="ministeriale.linkAgenda"
 			>
-				{{ anciano.nombre }}
+				{{ ministeriale.nombre }}
 			</a>
 		</div>
 	</ul>

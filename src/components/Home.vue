@@ -5,7 +5,7 @@ import CardGup from './CardGup.vue'
 import Carousel from './Carousel.vue'
 
 import axios from 'axios'
-import rutas from '../js/rutasBD'
+import rutas from '@/assets/js/rutasBD'
 
 const grupos = ref([''])
 
