@@ -1,7 +1,8 @@
 import { createApp } from 'vue'
-import './assets/js/bootstrap'
-import './assets/css/bootstrap.css'
 import router from './router'
 import App from './App.vue'
+
+import 'bootstrap/dist/js/bootstrap'
+import 'bootstrap/dist/css/bootstrap.css'
 
 createApp(App).use(router).mount('#app')
