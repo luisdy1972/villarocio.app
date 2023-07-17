@@ -4,7 +4,7 @@
 	<div>
 		<nav class="navbar bg-body-tertiary fixed-top shadow">
 			<div class="container-fluid">
-				<img class="logoVR" src="../../../public/img/favicon.png" />
+				<img class="logoVR" src="/public/img/favicon.png" />
 				<a
 					href="https://villarocio.netlify.app/"
 					style="text-decoration: none; color: black"

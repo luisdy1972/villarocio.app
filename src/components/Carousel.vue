@@ -32,7 +32,7 @@
 						rel="noopener noreferrer"
 					>
 						<img
-							src="../../../public/img/TargetasTerritorio(Obtimizado).jpg"
+							src="/public/img/TargetasTerritorio(Obtimizado).jpg"
 							class="d-block w-100"
 							alt="..."
 						/>
