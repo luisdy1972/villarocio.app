@@ -5,9 +5,9 @@
 		<nav class="navbar bg-body-tertiary fixed-top shadow">
 			<div class="container-fluid">
 				<img class="logoVR" src="../../../public/img/favicon.png" />
-				<a class="titulo-principal" href="#">
+				<router-link class="titulo-principal" to="/">
 					<h1>Villa Rocío</h1>
-				</a>
+				</router-link>
 
 				<button
 					class="navbar-toggler"
@@ -44,6 +44,11 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#">Añadir 🤵🏻</a>
+							</li>
+							<li>
+								<router-link class="titulo-principal" to="/about">
+									About
+								</router-link>
 							</li>
 						</ul>
 					</div>
