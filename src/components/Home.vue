@@ -1,8 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-import CardGup from './CardGup.vue'
-import Carousel from './Carousel.vue'
+import { CardGup, Carousel } from '@/components'
 
 import axios from 'axios'
 import rutas from '@/assets/js/rutasBD'
@@ -14,7 +13,7 @@ onMounted(() => {
 		.get(rutas.grupos)
 		.then(function (response) {
 			grupos.value = response.data
-			// console.log(grupos.value)
+			console.log(grupos.value)
 		})
 		.catch(function (error) {
 			console.error(error)
