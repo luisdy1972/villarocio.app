@@ -38,7 +38,7 @@ onMounted(() => {
 				<li>Ver acuerdos de conferencias con otras congregaciones.</li>
 			</ul>
 			<h2 class="p-4 border-top">Gupos</h2>
-			<div class="d-flex justify-content flex-wrap mb-5">
+			<div class="d-flex justify-content-center flex-wrap mb-5">
 				<CardGup
 					class="m-1"
 					v-for="grupo in grupos"
