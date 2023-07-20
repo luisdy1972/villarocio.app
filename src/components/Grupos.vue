@@ -65,7 +65,7 @@ onMounted(() => {
 		</section>
 		<section class="container mb-5">
 			<div class="d-flex justify-content-between border-top pt-4">
-				<h3 class="">Arreglos de conferencias</h3>
+				<h3>Arreglos de conferencias</h3>
 				<div class="d-flex gap-3">
 					<router-link to="/ancianos">
 						<button class="btn btn btn-primary">Ancianos</button>
