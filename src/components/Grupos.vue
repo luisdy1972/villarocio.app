@@ -37,20 +37,6 @@ onMounted(() => {
 			/>
 		</div>
 	</section>
-	<section class="container mb-5 border-bottom">
-		<div class="d-flex justify-content-between pt-4">
-			<h3>Arreglos de conferencias</h3>
-			<div class="d-flex gap-3">
-				<router-link to="/ancianos">
-					<button class="btn btn btn-primary">Ancianos</button>
-				</router-link>
-				<router-link to="/ministeriales">
-					<button class="btn bbtn btn-secondary">Ministeriales</button>
-				</router-link>
-			</div>
-		</div>
-		<router-view></router-view>
-	</section>
 </template>
 
 <style scoped></style>

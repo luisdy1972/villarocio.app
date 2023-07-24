@@ -16,10 +16,15 @@ const router = createRouter({
 			component: Layout,
 			children: [
 				{ path: '/', component: Carousel },
-				{ path: '/ancianos', component: Ancianos },
-				{ path: '/agenda', component: Agenda },
 				{ path: '/grupos', component: Grupos },
-				{ path: '/ministeriales', component: Ministeriales },
+				{
+					path: '/agenda',
+					component: Agenda,
+					children: [
+						{ path: '/agenda/ancianos', component: Ancianos },
+						{ path: '/agenda/ministeriales', component: Ministeriales },
+					],
+				},
 			],
 		},
 	],
