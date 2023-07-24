@@ -4,7 +4,7 @@ import CardGup from './CardGup.vue'
 import CardPerson from './CardPerson.vue'
 import Carousel from './Carousel.vue'
 import Ministeriales from './Ministeriales.vue'
-import NavBar from './NavBar.vue'
+import Agenda from './Agenda.vue'
 
 export {
 	Grupos,
@@ -13,5 +13,5 @@ export {
 	CardPerson,
 	Carousel,
 	Ministeriales,
-	NavBar,
+	Agenda,
 }

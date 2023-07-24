@@ -92,6 +92,17 @@
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
+		<div class="container">
+			<h2 class="pt-4 border-button">Información general</h2>
+			En este sitio web, podrá:
+			<ul class="pb-4 me-5">
+				<li>Visualizar y descargar el mapa del territorio general.</li>
+				<li>Ver una lista de grupos.</li>
+				<li>Generar informes mensuales.</li>
+				<li>Revisar agendas personales de conferencias.</li>
+				<li>Ver acuerdos de conferencias con otras congregaciones.</li>
+			</ul>
+		</div>
 	</div>
 </template>
 <style scoped>

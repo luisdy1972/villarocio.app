@@ -5,10 +5,7 @@
 		<nav class="navbar bg-body-tertiary fixed-top shadow">
 			<div class="container-fluid">
 				<img class="logoVR" src="@/assets/img/favicon.png" />
-				<a
-					href="https://villarocio.netlify.app/"
-					style="text-decoration: none; color: black"
-				>
+				<a href="/" style="text-decoration: none; color: black">
 					<h1>Villa Rocío</h1>
 				</a>
 				<button
@@ -39,12 +36,23 @@
 					</div>
 					<div class="offcanvas-body">
 						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-							<li class="nav-item">En proceso...</li>
+							<RouterLink to="/">
+								<li class="nav-item">Home</li>
+							</RouterLink>
+							<RouterLink to="/grupos">
+								<li class="nav-item">Grupos</li>
+							</RouterLink>
+							<RouterLink to="/agenda">
+								<li class="nav-item">Agenda de conferencias</li>
+							</RouterLink>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</nav>
+	</div>
+	<div style="margin-top: 4rem">
+		<RouterView></RouterView>
 	</div>
 </template>
 

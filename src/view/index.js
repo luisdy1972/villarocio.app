@@ -1,3 +1,2 @@
-import Home from './Home.vue'
-
-export { Home }
+import Layout from './Layout.vue'
+export { Layout }
