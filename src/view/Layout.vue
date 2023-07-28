@@ -37,10 +37,10 @@
 							<a href="/" class="text-decoration-none text-primary">
 								<li class="nav-item">Página Principal</li>
 							</a>
-							<a href="/grupos" class="text-decoration-none text-primary">
+							<a href="./grupos" class="text-decoration-none text-primary">
 								<li class="nav-item">Grupos</li>
 							</a>
-							<a href="/agenda" class="text-decoration-none text-primary">
+							<a href="./agenda" class="text-decoration-none text-primary">
 								<li class="nav-item">Agendas de conferencias</li>
 							</a>
 						</ul>
