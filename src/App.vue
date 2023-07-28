@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-	<router-view></router-view>
+	<router-view id="1"></router-view>
 </template>
 
 <style scoped></style>

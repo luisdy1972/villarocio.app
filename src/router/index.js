@@ -1,12 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import {
-	Grupos,
-	Ancianos,
-	Ministeriales,
-	Carousel,
-	Agenda,
-} from '@/components/'
+import { Home, Grupos, Agenda, Ancianos, Ministeriales } from '@/pages'
+
 import { Layout } from '@/view'
 const router = createRouter({
 	history: createWebHistory(),
@@ -15,7 +10,7 @@ const router = createRouter({
 			path: '/',
 			component: Layout,
 			children: [
-				{ path: '/', component: Carousel },
+				{ path: '/', component: Home },
 				{ path: '/grupos', component: Grupos },
 				{
 					path: '/agenda',

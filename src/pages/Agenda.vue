@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
 	<div class="container">
-		<h2 class="pb-3">Agenda congregación</h2>
+		<h2 class="pt-4 pb-3 border-bottom" id="calendario">Agenda congregación</h2>
 		<div class="d-flex justify-content-center">
 			<iframe
 				class="shadow p-1 mb-5"
@@ -15,12 +15,12 @@
 			</iframe>
 		</div>
 	</div>
-	<section class="container mb-5">
-		<div class="d-flex justify-content-between pt-4">
-			<h3>Arreglos de conferencias</h3>
-			<div class="d-flex gap-3">
+	<section class="container mb-5 mt-5 shadow p-5">
+		<div class="d-flex justify-content-between">
+			<h3 class="me-1">Asignaciones</h3>
+			<div class="d-flex">
 				<router-link to="/agenda/ancianos">
-					<button class="btn btn-primary">Ancianos</button>
+					<button class="btn btn-primary me-2">Ancianos</button>
 				</router-link>
 				<router-link to="/agenda/ministeriales">
 					<button class="btn btn-secondary">Ministeriales</button>

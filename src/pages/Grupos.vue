@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-import { CardGup } from '@/components'
+import { CardGrup } from '@/components'
 
 import axios from 'axios'
 import rutas from '@/assets/js/rutasBD'
@@ -26,9 +26,9 @@ onMounted(() => {
 </script>
 <template>
 	<section class="container">
-		<h2 class="p-4">Gupos</h2>
+		<h2 class="pt-4 pb-3 mb-4 border-bottom">Gupos</h2>
 		<div class="d-flex justify-content-center flex-wrap mb-5">
-			<CardGup
+			<CardGrup
 				class="m-1"
 				v-for="grupo in grupos"
 				:numero="grupo.numero"
