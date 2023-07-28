@@ -37,12 +37,18 @@
 							<a href="/" class="text-decoration-none text-primary">
 								<li class="nav-item">Página Principal</li>
 							</a>
-							<a href="./grupos" class="text-decoration-none text-primary">
+							<RouterLink
+								to="/grupos"
+								class="text-decoration-none text-primary"
+							>
 								<li class="nav-item">Grupos</li>
-							</a>
-							<a href="./agenda" class="text-decoration-none text-primary">
+							</RouterLink>
+							<RouterLink
+								to="./agenda"
+								class="text-decoration-none text-primary"
+							>
 								<li class="nav-item">Agendas de conferencias</li>
-							</a>
+							</RouterLink>
 						</ul>
 					</div>
 				</div>
