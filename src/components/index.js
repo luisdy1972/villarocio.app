@@ -1,9 +1,5 @@
-import Home from './Home.vue'
-import Ancianos from './Ancianos.vue'
-import CardGup from './CardGup.vue'
-import CardPerson from './CardPerson.vue'
+import CardGrup from './CardGrup.vue'
 import Carousel from './Carousel.vue'
-import Ministeriales from './Ministeriales.vue'
-import NavBar from './NavBar.vue'
+import CopyModal from './CopyModal.vue'
 
-export { Home, Ancianos, CardGup, CardPerson, Carousel, Ministeriales, NavBar }
+export { CardGrup, Carousel, CopyModal }
