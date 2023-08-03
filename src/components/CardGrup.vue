@@ -8,7 +8,7 @@ const props = defineProps({
 
 <template>
 	<div class="card card-person">
-		<h5 class="card-header">Gurpo {{ props.numero }}</h5>
+		<h5 class="card-header">Grupo {{ props.numero }}</h5>
 		<div class="card-body">
 			<h5 class="card-title">{{ props.responsable }}</h5>
 			<a :href="props.linkInforme" target="_blank" class="btn btn-primary mt-3"
