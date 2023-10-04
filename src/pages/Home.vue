@@ -1,9 +1,5 @@
 <script setup>
 import Carousel from '@/components/Carousel.vue'
-
-function imprimir() {
-	print()
-}
 </script>
 <template>
 	<Carousel />
@@ -13,7 +9,14 @@ function imprimir() {
 			<div class="fw-medium fs-5">En este sitio web, podrá:</div>
 			<ul class="pb-4 me-5 fw-medium fs-5">
 				<li>
-					Visualizar y
+					<a
+						href="https://drive.google.com/file/d/1n2xWHLw55sZ3drwQlXq14vzU2KWvdlX1yg/view"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						Visualizar</a
+					>
+					y
 					<a
 						href="https://drive.google.com/u/0/uc?id=1n2xWHLw55sZ3drwQlXq14vzU2KWvdlX1yg&export=download"
 						target="_blank"
