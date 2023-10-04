@@ -1,5 +1,9 @@
 <script setup>
 import Carousel from '@/components/Carousel.vue'
+
+function imprimir() {
+	print()
+}
 </script>
 <template>
 	<Carousel />
@@ -17,6 +21,16 @@ import Carousel from '@/components/Carousel.vue'
 					>
 						descargar el mapa </a
 					>del territorio general.
+				</li>
+				<li>
+					Visualizar el
+					<a
+						href="https://docs.google.com/spreadsheets/d/1RlSSHVHKMvuBQzJ_xdrTpC4aTWLO7Ex2i3jPlC9uEJM/edit#gid=1308795926"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						regitro de rerritorios.
+					</a>
 				</li>
 				<li>Ver una lista de <RouterLink to="/grupos">grupos.</RouterLink></li>
 				<li>
