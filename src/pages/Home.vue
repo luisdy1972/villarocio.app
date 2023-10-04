@@ -25,7 +25,7 @@ function imprimir() {
 				<li>
 					Visualizar el
 					<a
-						href="https://docs.google.com/spreadsheets/d/1RlSSHVHKMvuBQzJ_xdrTpC4aTWLO7Ex2i3jPlC9uEJM/edit#gid=1308795926"
+						href="https://docs.google.com/spreadsheets/d/1RlSSHVHKMvuBQzJ_xdrTpC4aTWLO7Ex2i3jPlC9uEJM/edit?usp=sharing"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
