@@ -5,58 +5,6 @@ import { NavBar } from '@components'
 <template>
 	<div>
 		<NavBar></NavBar>
-		<!-- <nav class="navbar bg-body-tertiary fixed-top shadow">
-			<div class="container-fluid">
-				<img class="logoVR" src="@/assets/img/favicon.png" />
-				<a href="/" style="text-decoration: none; color: black">
-					<h1>Villa Rocío</h1>
-				</a>
-				<button
-					class="navbar-toggler boton-navegacion"
-					type="button"
-					data-bs-toggle="offcanvas"
-					data-bs-target="#offcanvasNavbar"
-					aria-controls="offcanvasNavbar"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div
-					class="offcanvas offcanvas-end"
-					tabindex="-1"
-					id="offcanvasNavbar"
-					aria-labelledby="offcanvasNavbarLabel"
-				>
-					<div class="offcanvas-header">
-						<h5 class="offcanvas-title" id="offcanvasNavbarLabel">Páginas</h5>
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="offcanvas"
-							aria-label="Close"
-						></button>
-					</div>
-					<div class="offcanvas-body">
-						<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 fs-5">
-							<a href="/" class="text-decoration-none text-primary">
-								<li class="nav-item">Página Principal</li>
-							</a>
-							<RouterLink
-								to="/grupos"
-								class="text-decoration-none text-primary"
-							>
-								<li class="nav-item">Grupos</li>
-							</RouterLink>
-							<RouterLink
-								to="./agenda"
-								class="text-decoration-none text-primary"
-							>
-								<li class="nav-item">Agendas de conferencias</li>
-							</RouterLink>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav> -->
 	</div>
 	<div style="margin-top: 4rem">
 		<RouterView></RouterView>
@@ -81,11 +29,11 @@ import { NavBar } from '@components'
 						</li>
 					</ul>
 				</div>
-				<div class="">
+				<div>
 					<h5>Índice</h5>
 					<ul class="list-unstyled">
 						<li class="mb-2">
-							<a href="/">Pagina Principal</a>
+							<a href="/">Inicio</a>
 						</li>
 						<li class="mb-2">
 							<RouterLink to="/grupos">Grupos</RouterLink>
@@ -96,7 +44,7 @@ import { NavBar } from '@components'
 						<li class="mb-2">
 							<RouterLink to="/agenda/ancianos">Ancianos</RouterLink>
 						</li>
-						<li class="mb-2">
+						<li>
 							<RouterLink to="/agenda/ministeriales">Ministeriales</RouterLink>
 						</li>
 					</ul>
@@ -107,7 +55,12 @@ import { NavBar } from '@components'
 </template>
 
 <style scoped>
+li > a {
+	text-decoration: none;
+	color: gray;
+}
+
 .parrafo-futher {
-	max-width: 20%;
+	max-width: 80%;
 }
 </style>
