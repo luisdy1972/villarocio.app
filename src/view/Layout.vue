@@ -1,8 +1,11 @@
-<script setup></script>
+<script setup>
+import { NavBar } from '@components'
+</script>
 
 <template>
 	<div>
-		<nav class="navbar bg-body-tertiary fixed-top shadow">
+		<NavBar></NavBar>
+		<!-- <nav class="navbar bg-body-tertiary fixed-top shadow">
 			<div class="container-fluid">
 				<img class="logoVR" src="@/assets/img/favicon.png" />
 				<a href="/" style="text-decoration: none; color: black">
@@ -53,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-		</nav>
+		</nav> -->
 	</div>
 	<div style="margin-top: 4rem">
 		<RouterView></RouterView>
@@ -104,26 +107,6 @@
 </template>
 
 <style scoped>
-.logoVR {
-	margin: 0;
-	padding: 0;
-	height: 2.5rem;
-}
-
-h1 {
-	margin: 0;
-	padding: 0;
-	font-size: 2rem;
-}
-
-.titulo-principal {
-	margin: 0;
-	color: black;
-	text-decoration: none;
-}
-.boton-navegacion {
-	color: #62bee8;
-}
 .parrafo-futher {
 	max-width: 20%;
 }
