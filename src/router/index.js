@@ -23,6 +23,14 @@ const router = createRouter({
 			],
 		},
 	],
+	scrollBehavior(to, from, savedPosition) {
+		// console.log(to, from)
+		if (to.path == '/agenda/ancianos' || to.path == '/agenda/ministeriales') {
+			return { el: '#asignaciones', top: 150 }
+		} else {
+			return { top: 0 }
+		}
+	},
 })
 
 export default router

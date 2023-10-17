@@ -23,7 +23,7 @@ function copiarTexto(texto) {
 }
 </script>
 <template>
-	<ul class="list-group list-group-flush">
+	<ul id="ministeriales" class="list-group list-group-flush">
 		<div class="list-group-item">
 			<div
 				v-for="ministeriale in ministeriales"

@@ -45,10 +45,8 @@
 				<div class="carousel-item img-carucel" data-bs-interval="2000">
 					<iframe
 						src="https://www.google.com/maps/d/u/0/embed?mid=1I6hkYNO73qSDyqLG1DlUXahzLPT11Tg&ehbc=2E312F"
-						width="1920"
+						width="100%"
 						height="600"
-						style="border: 0"
-						allowfullscreen=""
 						loading="lazy"
 						referrerpolicy="no-referrer-when-downgrade"
 					></iframe>
@@ -60,7 +58,7 @@
 				<div class="carousel-item img-carucel" data-bs-interval="2000">
 					<iframe
 						src="https://www.google.com/maps/d/embed?mid=1TQJN9o3nfdCAHwxYx5ZhDs39tiv9ODw&ehbc=2E312F"
-						width="1920"
+						width="100%"
 						height="600"
 						style="border: 0"
 						allowfullscreen=""

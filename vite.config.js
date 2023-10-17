@@ -10,6 +10,10 @@ export default defineConfig({
 		alias: {
 			'@': fileURLToPath(new URL('./src', import.meta.url)),
 			'@pub': fileURLToPath(new URL('./public', import.meta.url)),
+			'@components': fileURLToPath(
+				new URL('./src/components', import.meta.url)
+			),
+			'@db': fileURLToPath(new URL('./database', import.meta.url)),
 		},
 	},
 })

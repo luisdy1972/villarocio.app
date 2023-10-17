@@ -24,7 +24,7 @@ function copiarTexto(texto) {
 }
 </script>
 <template>
-	<ul class="list-group list-group-flush">
+	<ul id="ancianos" class="list-group list-group-flush">
 		<div class="list-group-item">
 			<div
 				v-for="anciano in ancianos"
