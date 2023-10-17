@@ -1,7 +1,5 @@
 import { ref } from 'vue'
 import { auth, provider } from '@db'
-import { getNotas, notas } from '@db/notas.js'
-
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -18,7 +16,7 @@ if (localStorage.getItem('sign')) {
 	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
 	console.log((user.value = userInLocalStorage.user))
 	user.value.displayName = userInLocalStorage.user.email
-	getNotas()
+	// getNotas()
 }
 export const email = ref('')
 export const password = ref('')
@@ -46,7 +44,7 @@ export async function SignInEmail() {
 				user.value = result.user
 				user.value.displayName = result.user.email
 				console.log('Login 👌', user.value.displayName)
-				getNotas()
+				// getNotas()
 			}
 		)
 	} catch (error) {
@@ -64,7 +62,7 @@ export async function LoginConGoogle() {
 			localStorage.setItem('sign', JSON.stringify(result))
 			user.value = result.user
 			console.log('Login 👌', user.value.displayName)
-			getNotas()
+			// getNotas()
 		})
 		.catch((error) => {
 			console.log('Login 👎🏻', 'Algo salió mal')
@@ -73,9 +71,8 @@ export async function LoginConGoogle() {
 }
 
 export async function EndSession() {
-	console.log('Adios 🫡', user.value.displayName)
+	console.log('Adios ✌', user.value.displayName)
 	user.value = {}
-	notas.value = []
 	localStorage.clear('signEmail')
 	signOut(auth)
 }
