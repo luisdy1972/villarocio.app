@@ -1,25 +1,14 @@
-<script setup>
-import {
-	user,
-	email,
-	password,
-	LoginConGoogle,
-	SignInEmail,
-	SignUpEmail,
-	EndSession,
-} from '@db'
-</script>
 <template>
 	<nav class="navbar shadow bg-blur container-fluid fixed-top">
 		<div class="d-flex gap-2">
 			<img class="logoVR ms-2" src="@/assets/img/favicon.png" />
-			<a
+			<RouterLink
 				v-if="user.displayName == undefined"
-				href="/"
+				to="/"
 				style="text-decoration: none; color: black"
 			>
 				<h1>Villa Rocío</h1>
-			</a>
+			</RouterLink>
 			<!-- <a v-if="user.displayName == undefined" href="/">Welcome</a> -->
 			<h1 v-else href="/">{{ user.displayName }}</h1>
 		</div>
@@ -218,6 +207,17 @@ import {
 		</div>
 	</div>
 </template>
+<script setup>
+import {
+	user,
+	email,
+	password,
+	LoginConGoogle,
+	SignInEmail,
+	SignUpEmail,
+	EndSession,
+} from '@db'
+</script>
 <style scoped>
 .logoVR {
 	height: 2.5rem;
