@@ -25,6 +25,8 @@ export async function SignUpEmail() {
 	try {
 		createUserWithEmailAndPassword(auth, email.value, password.value).then(
 			(e) => {
+				email.value = ''
+				password.value = ''
 				console.log('Registro exitóso')
 				console.log(e)
 			}
@@ -44,6 +46,8 @@ export async function SignInEmail() {
 				user.value = result.user
 				user.value.displayName = result.user.email
 				console.log('Login 👌', user.value.displayName)
+				email.value = ''
+				password.value = ''
 				// getNotas()
 			}
 		)

@@ -1,6 +1,8 @@
 import CardGrup from './CardGrup.vue'
 import Carousel from './Carousel.vue'
-import CopyModal from './CopyModal.vue'
+import Notification from './Notification.vue'
 import NavBar from './NavBar.vue'
 import Footer from './Footer.vue'
-export { CardGrup, Carousel, CopyModal, NavBar, Footer }
+import Loading from './Loading.vue'
+
+export { CardGrup, Carousel, Notification, NavBar, Footer, Loading }

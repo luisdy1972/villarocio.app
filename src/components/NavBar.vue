@@ -1,6 +1,25 @@
+<script setup>
+import {
+	user,
+	email,
+	password,
+	LoginConGoogle,
+	SignInEmail,
+	SignUpEmail,
+	EndSession,
+} from '@db'
+import { ref } from 'vue'
+const password2 = ref('')
+
+function registrar() {
+	password2.value = ''
+	SignUpEmail()
+}
+</script>
+
 <template>
-	<nav class="navbar shadow bg-blur container-fluid fixed-top">
-		<div class="d-flex gap-2">
+	<nav class="navbar shadow nav-bar-top-blur container-fluid fixed-top">
+		<div class="d-flex align-items-center gap-2">
 			<img class="logoVR ms-2" src="@/assets/img/favicon.png" />
 			<RouterLink
 				v-if="user.displayName == undefined"
@@ -10,9 +29,12 @@
 				<h1>Villa Rocío</h1>
 			</RouterLink>
 			<!-- <a v-if="user.displayName == undefined" href="/">Welcome</a> -->
-			<h1 v-else href="/">{{ user.displayName }}</h1>
+			<h1 class="user-name" v-else href="/">{{ user.displayName }}</h1>
 		</div>
-		<div class="d-flex gap-2 me-2" v-if="user.displayName == undefined">
+		<div
+			class="d-flex align-items-center gap-2 me-2"
+			v-if="user.displayName == undefined"
+		>
 			<button
 				type="button"
 				class="btn btn-sm btn-primary"
@@ -20,6 +42,7 @@
 				data-bs-target="#exampleModal"
 				data-bs-whatever="@mdo"
 			>
+				Iniciar Sesión
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -35,6 +58,8 @@
 					/>
 				</svg>
 			</button>
+		</div>
+		<div v-else>
 			<button
 				type="button"
 				class="btn btn-sm btn-secondary"
@@ -42,6 +67,7 @@
 				data-bs-target="#exampleModal1"
 				data-bs-whatever="@mdo"
 			>
+				Nuevo usuario
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -55,27 +81,31 @@
 					/>
 				</svg>
 			</button>
-		</div>
-		<button v-else @click="EndSession()" type="button" class="btn btn-sm">
-			Cerrar Seción
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				fill="currentColor"
-				class="bi bi-box-arrow-right"
-				viewBox="0 0 16 16"
+			<button
+				@click="EndSession()"
+				type="button"
+				class="ms-1 me-1 btn btn-sm btn-danger"
 			>
-				<path
-					fill-rule="evenodd"
-					d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
-				/>
-				<path
-					fill-rule="evenodd"
-					d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
-				/>
-			</svg>
-		</button>
+				Salir
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="16"
+					height="16"
+					fill="currentColor"
+					class="bi bi-box-arrow-right"
+					viewBox="0 0 16 16"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"
+					/>
+					<path
+						fill-rule="evenodd"
+						d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"
+					/>
+				</svg>
+			</button>
+		</div>
 	</nav>
 	<!-- modal Iniciar Sesion -->
 	<div
@@ -163,20 +193,25 @@
 					></button>
 				</div>
 				<div class="modal-body">
-					<button
+					<!-- <button
 						@click="LoginConGoogle()"
 						class="btn btn-primary"
 						role="button"
 						data-bs-dismiss="modal"
 					>
 						Iniciar con Google
-					</button>
+					</button> -->
 					<form>
 						<div class="mb-3">
 							<label for="recipient-name" class="col-form-label">
 								Usuario
 							</label>
-							<input type="email" v-model="email" class="form-control" />
+							<input
+								placeholder="ejemplo@gmail.com"
+								type="email"
+								v-model="email"
+								class="form-control"
+							/>
 						</div>
 						<div class="mb-3">
 							<label for="message-text" class="col-form-label">
@@ -184,13 +219,29 @@
 							</label>
 							<input type="password" v-model="password" class="form-control" />
 						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label">
+								Confirmar Contraseña
+							</label>
+							<input type="password" v-model="password2" class="form-control" />
+						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button
+						v-if="user != '' && password != '' && password == password2"
 						type="button"
 						class="btn btn-primary"
-						@click="SignUpEmail()"
+						@click="registrar()"
+						data-bs-dismiss="modal"
+					>
+						Registrar
+					</button>
+					<button
+						v-else
+						disabled
+						type="button"
+						class="btn btn-secondary"
 						data-bs-dismiss="modal"
 					>
 						Registrar
@@ -207,27 +258,21 @@
 		</div>
 	</div>
 </template>
-<script setup>
-import {
-	user,
-	email,
-	password,
-	LoginConGoogle,
-	SignInEmail,
-	SignUpEmail,
-	EndSession,
-} from '@db'
-</script>
+
 <style scoped>
 .logoVR {
 	height: 2.5rem;
 }
 
 h1 {
-	font-size: 2rem;
+	font-size: 1.5rem;
 }
 
-.bg-blur {
+.user-name {
+	font-size: 1rem;
+}
+
+.nav-bar-top-blur {
 	background-color: rgba(255, 255, 255, 0.795);
 	backdrop-filter: blur(1px);
 }
