@@ -19,7 +19,6 @@ const ancianos = ref([
 		linkAgenda: '',
 	},
 ])
-const notification = ref(false)
 
 async function guardarNuevoAnciano() {
 	console.log(nuevoAnciano.value)
@@ -61,25 +60,26 @@ onMounted(() => {
 	buscarAncianos()
 })
 
+const notification = ref(false)
+
 function copiarTexto(texto) {
 	navigator.clipboard.writeText(texto)
 	notification.value = true
 	setTimeout(() => {
 		notification.value = false
-	}, 7000)
-	// console.log(texto)
+	}, 5000)
 }
 </script>
 <template>
+	<!-- notificacion copiado -->
+	<div v-if="notification">
+		<Notification
+			titulo="Enlace copiado"
+			mensaje="El enlace fue copiado en su portapapeles, ya puede pegarlo y compatirlo."
+		/>
+	</div>
 	<ul id="ancianos" class="list-group list-group-flush">
 		<div class="list-group-item">
-			<!-- notificacion copiado -->
-			<div v-if="notification">
-				<Notification
-					titulo="Enlace copiado"
-					mensaje="El enlace fue copiado en su portapapeles, ya puede pegarlo y compatirlo."
-				/>
-			</div>
 			<div
 				v-for="anciano in ancianos"
 				class="list-group-item list-group-item-action d-flex justify-content-between m-1"
