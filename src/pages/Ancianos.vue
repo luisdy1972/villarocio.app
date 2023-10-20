@@ -89,7 +89,7 @@ function copiarEnlace(texto) {
 }
 
 onMounted(() => {
-	buscarAncianos('GWw2Pv22pmdI2w2gQF0W')
+	buscarAncianos()
 })
 </script>
 <template>
@@ -99,7 +99,7 @@ onMounted(() => {
 		titulo="Enlace copiado"
 		mensaje="El enlace fue copiado en su portapapeles, ya puede pegarlo y compatirlo."
 	/>
-	<ul id="ancianos" class="list-group list-group-flush">
+	<ul id="ancianos" class="list-group list-group-flush text-primary">
 		<li class="list-group-item mt-2">
 			<div
 				v-for="anciano in ancianos"
@@ -187,7 +187,10 @@ onMounted(() => {
 					</svg>
 				</button>
 			</div>
-			<Loading v-if="ancianos.length == 0" />
+			<div class="text-primary">
+				<Loading v-if="ancianos.length == 0" />
+			</div>
+
 			<!-- nuevo Anciano -->
 			<div v-if="user.displayName" class="mt-4">
 				<button
