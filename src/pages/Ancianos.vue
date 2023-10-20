@@ -17,6 +17,7 @@ import { Loading, Notification } from '@components'
 // const anciano = ref()
 const ancianos = ref([])
 const nuevoAnciano = ref({ nombre: '', linkAgenda: '' })
+const ancianoActualizar = ref({ nombre: '', linkAgenda: '', id: '' })
 const notification = ref(false)
 
 async function buscarAncianos() {
@@ -55,17 +56,23 @@ async function guardarAnciano() {
 		console.error(error)
 	}
 }
-async function actualizarAnciano(id, datos) {
-	alert(id, datos)
-	// try {
-	// 	await setDoc(doc(db, 'ancianos', id), datos)
-	// 	ancianos.value = []
-	// 	nuevoAnciano.value.nombre = ''
-	// 	nuevoAnciano.value.linkAgenda = ''
-	// 	buscarAncianos()
-	// } catch (error) {
-	// 	console.error(error)
-	// }
+
+async function actualizarAnciano(id, nombre, link) {
+	ancianoActualizar.value.id = id
+	ancianoActualizar.value.nombre = nombre
+	ancianoActualizar.value.linkAgenda = link
+}
+async function actualizarAncianoOK(id, datos) {
+	try {
+		await setDoc(doc(db, 'ancianos', id), datos)
+		ancianos.value = []
+		nuevoAnciano.value.nombre = ''
+		nuevoAnciano.value.linkAgenda = ''
+		buscarAncianos()
+	} catch (error) {
+		alert('Ocurrió un error')
+		console.error(error)
+	}
 }
 
 function copiarEnlace(texto) {
@@ -139,10 +146,15 @@ onMounted(() => {
 						/>
 					</svg>
 				</button>
-				<!-- actualizarAnciano -->
+				<!-- editar Anciano -->
 				<button
 					v-if="user.displayName"
-					v-on:click="actualizarAnciano(anciano.id, nuevoAnciano)"
+					@click="
+						actualizarAnciano(anciano.id, anciano.nombre, anciano.linkAgenda)
+					"
+					data-bs-toggle="modal"
+					data-bs-target="#modal-editar-anciano"
+					data-bs-whatever="@mdo"
 					type="button"
 					class="btn btn-outline-secondary ms-2"
 				>
@@ -274,6 +286,84 @@ onMounted(() => {
 					<button
 						v-if="nuevoAnciano.nombre != '' && nuevoAnciano.linkAgenda != ''"
 						@click="guardarAnciano()"
+						type="button"
+						class="btn btn-primary"
+						data-bs-dismiss="modal"
+					>
+						Guardar
+					</button>
+					<button v-else type="button" class="btn btn-primary" disabled>
+						Guardar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal Editar anciano -->
+	<div
+		v-if="user.displayName"
+		class="modal fade"
+		id="modal-editar-anciano"
+		tabindex="-1"
+		aria-labelledby="exampleModalLabel"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title fs-5" id="exampleModalLabel">
+						Editar Anciano
+					</h2>
+					<button
+						type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="Close"
+					></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="recipient-name" class="col-form-label">Nombre:</label>
+							<input
+								v-model="ancianoActualizar.nombre"
+								type="text"
+								class="form-control"
+								id="recipient-name"
+							/>
+						</div>
+						<div class="mb-3">
+							<label for="message-text" class="col-form-label"
+								>Enlace de la agenda:</label
+							>
+							<textarea
+								v-model="ancianoActualizar.linkAgenda"
+								placeholder="http://..."
+								class="form-control"
+								id="message-text"
+							></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button
+						type="button"
+						class="btn btn-secondary"
+						data-bs-dismiss="modal"
+					>
+						Cerrar
+					</button>
+					<button
+						v-if="
+							ancianoActualizar.nombre != '' &&
+							ancianoActualizar.linkAgenda != ''
+						"
+						@click="
+							actualizarAncianoOK(ancianoActualizar.id, {
+								nombre: ancianoActualizar.nombre,
+								linkAgenda: ancianoActualizar.linkAgenda,
+							})
+						"
 						type="button"
 						class="btn btn-primary"
 						data-bs-dismiss="modal"
