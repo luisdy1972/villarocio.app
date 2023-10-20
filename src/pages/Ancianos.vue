@@ -3,7 +3,9 @@ import { ref, onMounted } from 'vue'
 import { user, db } from '@db'
 import {
 	collection,
+	doc,
 	query,
+	getDoc,
 	getDocs,
 	addDoc,
 	setDoc,
@@ -12,28 +14,40 @@ import {
 
 import { Loading, Notification } from '@components'
 
+// const anciano = ref()
+const ancianos = ref([])
 const nuevoAnciano = ref({ nombre: '', linkAgenda: '' })
-const ancianos = ref([
-	{
-		nombre: '',
-		linkAgenda: '',
-	},
-])
+const notification = ref(false)
 
-async function guardarNuevoAnciano() {
-	console.log(nuevoAnciano.value)
+async function buscarAncianos() {
+	const ancianosDB = []
+	const ancianoRef = collection(db, 'ancianos')
+	const q = query(ancianoRef)
+	// Ejecutar consulta
+	let QuerySnapshot = await getDocs(q)
+	QuerySnapshot.forEach((doc) => {
+		// console.log(doc.id);
+		const anciano = {
+			id: doc.id,
+			nombre: doc.data().nombre,
+			linkAgenda: doc.data().linkAgenda,
+		}
+		ancianosDB.push(anciano)
+		ancianos.value = ancianosDB
+	})
+}
+
+async function buscarAnciano(id) {
+	const ancianoRef = doc(db, 'ancianos', id)
+	const q = query(ancianoRef)
+	const QuerySnapshot = await getDoc(q)
+	console.log(QuerySnapshot.data())
+}
+
+async function guardarAnciano() {
 	try {
-		const ancianoRef = await addDoc(
-			collection(db, 'ancianos'),
-			nuevoAnciano.value
-		)
-		await setDoc(ancianoRef, nuevoAnciano.value)
-		ancianos.value = [
-			{
-				nombre: '',
-				linkAgenda: undefined,
-			},
-		]
+		await addDoc(collection(db, 'ancianos'), nuevoAnciano.value)
+		ancianos.value = []
 		nuevoAnciano.value.nombre = ''
 		nuevoAnciano.value.linkAgenda = ''
 		buscarAncianos()
@@ -41,34 +55,46 @@ async function guardarNuevoAnciano() {
 		console.error(error)
 	}
 }
-
-async function buscarAncianos() {
-	const ancianosDB = []
-	let ancianoRef = collection(db, 'ancianos')
-	const q = query(ancianoRef)
-	// Ejecutar consulta
-	let QuerySnapshot = await getDocs(q)
-	QuerySnapshot.forEach((doc) => {
-		const anciano = doc.data()
-		ancianosDB.push(anciano)
-		ancianos.value = ancianosDB
-		// console.log(anciano)
-	})
+async function actualizarAnciano(id, datos) {
+	alert(id, datos)
+	// try {
+	// 	await setDoc(doc(db, 'ancianos', id), datos)
+	// 	ancianos.value = []
+	// 	nuevoAnciano.value.nombre = ''
+	// 	nuevoAnciano.value.linkAgenda = ''
+	// 	buscarAncianos()
+	// } catch (error) {
+	// 	console.error(error)
+	// }
 }
 
-onMounted(() => {
-	buscarAncianos()
-})
-
-const notification = ref(false)
-
-function copiarTexto(texto) {
+function copiarEnlace(texto) {
 	navigator.clipboard.writeText(texto)
 	notification.value = true
 	setTimeout(() => {
 		notification.value = false
 	}, 5000)
 }
+
+async function eliminarAnciano(id, nombre) {
+	try {
+		const ancianoRef = doc(db, 'ancianos', id)
+		const q = query(ancianoRef)
+		await deleteDoc(q).then(() => {
+			console.log(nombre + ' Fué eliminado')
+			ancianos.value = []
+			nuevoAnciano.value.nombre = ''
+			nuevoAnciano.value.linkAgenda = ''
+			buscarAncianos()
+		})
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+onMounted(() => {
+	buscarAncianos()
+})
 </script>
 <template>
 	<!-- notificacion copiado -->
@@ -79,7 +105,7 @@ function copiarTexto(texto) {
 		/>
 	</div>
 	<ul id="ancianos" class="list-group list-group-flush">
-		<div class="list-group-item">
+		<div class="list-group-item mt-2">
 			<div
 				v-for="anciano in ancianos"
 				class="list-group-item list-group-item-action d-flex justify-content-between m-1"
@@ -89,14 +115,11 @@ function copiarTexto(texto) {
 					target="_blank"
 					class="text-decoration-none text-primary fs-5 fw-bold flex-fill"
 				>
-					<div v-if="ancianos.length == 1">
-						<Loading />
-					</div>
 					{{ anciano.nombre }}
 				</a>
-				<!-- copiar enlace -->
+				<!-- copiarEnlace enlace -->
 				<button
-					@click="copiarTexto(anciano.linkAgenda)"
+					@click="copiarEnlace(anciano.linkAgenda)"
 					type="button"
 					class="btn btn-outline-primary"
 				>
@@ -116,34 +139,10 @@ function copiarTexto(texto) {
 						/>
 					</svg>
 				</button>
-
-				<!-- eliminar -->
+				<!-- actualizarAnciano -->
 				<button
 					v-if="user.displayName"
-					v-on:click="copiarTexto(anciano.linkAgenda)"
-					type="button"
-					class="btn btn-outline-danger ms-2"
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
-						fill="currentColor"
-						class="bi bi-trash"
-						viewBox="0 0 16 16"
-					>
-						<path
-							d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"
-						/>
-						<path
-							d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"
-						/>
-					</svg>
-				</button>
-				<!-- editar -->
-				<button
-					v-if="user.displayName"
-					v-on:click="copiarTexto(anciano.linkAgenda)"
+					v-on:click="actualizarAnciano(anciano.id, nuevoAnciano)"
 					type="button"
 					class="btn btn-outline-secondary ms-2"
 				>
@@ -164,12 +163,33 @@ function copiarTexto(texto) {
 						/>
 					</svg>
 				</button>
+				<!-- eliminarAnciano -->
+				<button
+					v-if="user.displayName"
+					v-on:click="eliminarAnciano(anciano.id, anciano.nombre)"
+					type="button"
+					class="btn btn-outline-danger ms-2"
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						fill="currentColor"
+						class="bi bi-trash"
+						viewBox="0 0 16 16"
+					>
+						<path
+							d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"
+						/>
+						<path
+							d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"
+						/>
+					</svg>
+				</button>
 			</div>
+			<Loading v-if="ancianos.length == 0" />
 			<!-- nuevo Anciano -->
-			<div
-				v-if="user.displayName"
-				class="list-group-item list-group-item-action d-flex justify-content-between m-1"
-			>
+			<div v-if="user.displayName" class="mt-4">
 				<button
 					type="button"
 					class="btn btn-outline-success"
@@ -253,7 +273,7 @@ function copiarTexto(texto) {
 					</button>
 					<button
 						v-if="nuevoAnciano.nombre != '' && nuevoAnciano.linkAgenda != ''"
-						@click="guardarNuevoAnciano()"
+						@click="guardarAnciano()"
 						type="button"
 						class="btn btn-primary"
 						data-bs-dismiss="modal"
