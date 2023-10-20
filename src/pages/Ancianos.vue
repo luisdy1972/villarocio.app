@@ -5,7 +5,6 @@ import {
 	collection,
 	doc,
 	query,
-	getDoc,
 	getDocs,
 	addDoc,
 	setDoc,
@@ -90,7 +89,7 @@ function copiarEnlace(texto) {
 }
 
 onMounted(() => {
-	buscarAncianos()
+	buscarAncianos('GWw2Pv22pmdI2w2gQF0W')
 })
 </script>
 <template>
@@ -101,7 +100,7 @@ onMounted(() => {
 		mensaje="El enlace fue copiado en su portapapeles, ya puede pegarlo y compatirlo."
 	/>
 	<ul id="ancianos" class="list-group list-group-flush">
-		<div class="list-group-item mt-2">
+		<li class="list-group-item mt-2">
 			<div
 				v-for="anciano in ancianos"
 				class="list-group-item list-group-item-action d-flex justify-content-between m-1"
@@ -217,9 +216,8 @@ onMounted(() => {
 					Agregar Nuevo Anciano
 				</button>
 			</div>
-		</div>
+		</li>
 	</ul>
-
 	<!-- modal nuevo anciano -->
 	<div
 		v-if="user.displayName"

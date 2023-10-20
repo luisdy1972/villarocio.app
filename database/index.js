@@ -13,8 +13,6 @@ import {
 	EndSession,
 } from './user.js'
 
-import { buscarAnciano } from './ancianos.js'
-
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
 auth.languageCode = 'es'
@@ -37,7 +35,6 @@ export {
 	SignInEmail,
 	SignUpEmail,
 	EndSession,
-	buscarAnciano,
 	notas,
 	getNotas,
 	addNota,
