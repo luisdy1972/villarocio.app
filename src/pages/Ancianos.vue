@@ -14,7 +14,6 @@ import {
 
 import { Loading, Notification } from '@components'
 
-// const anciano = ref()
 const ancianos = ref([])
 const nuevoAnciano = ref({ nombre: '', linkAgenda: '' })
 const ancianoActualizar = ref({ nombre: '', linkAgenda: '', id: '' })
@@ -38,26 +37,16 @@ async function buscarAncianos() {
 	})
 }
 
-async function buscarAnciano(id) {
-	const ancianoRef = doc(db, 'ancianos', id)
-	const q = query(ancianoRef)
-	const QuerySnapshot = await getDoc(q)
-	console.log(QuerySnapshot.data())
-}
-
 async function guardarAnciano() {
 	try {
 		await addDoc(collection(db, 'ancianos'), nuevoAnciano.value)
-		ancianos.value = []
-		nuevoAnciano.value.nombre = ''
-		nuevoAnciano.value.linkAgenda = ''
-		buscarAncianos()
+		refescarLista()
 	} catch (error) {
 		console.error(error)
 	}
 }
 
-async function actualizarAnciano(id, nombre, link) {
+function actualizarAnciano(id, nombre, link) {
 	ancianoActualizar.value.id = id
 	ancianoActualizar.value.nombre = nombre
 	ancianoActualizar.value.linkAgenda = link
@@ -65,14 +54,31 @@ async function actualizarAnciano(id, nombre, link) {
 async function actualizarAncianoOK(id, datos) {
 	try {
 		await setDoc(doc(db, 'ancianos', id), datos)
-		ancianos.value = []
-		nuevoAnciano.value.nombre = ''
-		nuevoAnciano.value.linkAgenda = ''
-		buscarAncianos()
+		refescarLista()
 	} catch (error) {
 		alert('Ocurrió un error')
 		console.error(error)
 	}
+}
+
+async function eliminarAnciano(id, nombre) {
+	try {
+		const ancianoRef = doc(db, 'ancianos', id)
+		const q = query(ancianoRef)
+		await deleteDoc(q).then(() => {
+			console.log(nombre + ' Fué eliminado')
+			refescarLista()
+		})
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+function refescarLista() {
+	ancianos.value = []
+	nuevoAnciano.value.nombre = ''
+	nuevoAnciano.value.linkAgenda = ''
+	buscarAncianos()
 }
 
 function copiarEnlace(texto) {
@@ -83,34 +89,17 @@ function copiarEnlace(texto) {
 	}, 5000)
 }
 
-async function eliminarAnciano(id, nombre) {
-	try {
-		const ancianoRef = doc(db, 'ancianos', id)
-		const q = query(ancianoRef)
-		await deleteDoc(q).then(() => {
-			console.log(nombre + ' Fué eliminado')
-			ancianos.value = []
-			nuevoAnciano.value.nombre = ''
-			nuevoAnciano.value.linkAgenda = ''
-			buscarAncianos()
-		})
-	} catch (error) {
-		console.error(error)
-	}
-}
-
 onMounted(() => {
 	buscarAncianos()
 })
 </script>
 <template>
 	<!-- notificacion copiado -->
-	<div v-if="notification">
-		<Notification
-			titulo="Enlace copiado"
-			mensaje="El enlace fue copiado en su portapapeles, ya puede pegarlo y compatirlo."
-		/>
-	</div>
+	<Notification
+		v-if="notification"
+		titulo="Enlace copiado"
+		mensaje="El enlace fue copiado en su portapapeles, ya puede pegarlo y compatirlo."
+	/>
 	<ul id="ancianos" class="list-group list-group-flush">
 		<div class="list-group-item mt-2">
 			<div
@@ -254,23 +243,25 @@ onMounted(() => {
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">Nombre:</label>
+							<label for="recipient-name-anciano " class="col-form-label"
+								>Nombre:</label
+							>
 							<input
 								v-model="nuevoAnciano.nombre"
 								type="text"
 								class="form-control"
-								id="recipient-name"
+								id="recipient-name-anciano "
 							/>
 						</div>
 						<div class="mb-3">
-							<label for="message-text" class="col-form-label"
+							<label for="message-text-anciano" class="col-form-label"
 								>Enlace de la agenda:</label
 							>
 							<textarea
 								v-model="nuevoAnciano.linkAgenda"
 								placeholder="http://..."
 								class="form-control"
-								id="message-text"
+								id="message-text-anciano"
 							></textarea>
 						</div>
 					</form>
@@ -324,23 +315,25 @@ onMounted(() => {
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">Nombre:</label>
+							<label for="recipient-name-editar-anciano" class="col-form-label"
+								>Nombre:</label
+							>
 							<input
 								v-model="ancianoActualizar.nombre"
 								type="text"
 								class="form-control"
-								id="recipient-name"
+								id="recipient-name-editar-anciano"
 							/>
 						</div>
 						<div class="mb-3">
-							<label for="message-text" class="col-form-label"
+							<label for="message-text-editar-anciano" class="col-form-label"
 								>Enlace de la agenda:</label
 							>
 							<textarea
 								v-model="ancianoActualizar.linkAgenda"
 								placeholder="http://..."
 								class="form-control"
-								id="message-text"
+								id="message-text-editar-anciano"
 							></textarea>
 						</div>
 					</form>

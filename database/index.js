@@ -13,7 +13,7 @@ import {
 	EndSession,
 } from './user.js'
 
-import { notas, getNotas, addNota } from '@db/notas.js'
+import { buscarAnciano } from './ancianos.js'
 
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
@@ -23,6 +23,7 @@ const provider = new GoogleAuthProvider()
 
 const db = getFirestore(app)
 
+import { notas, getNotas, addNota } from '@db/notas.js'
 export {
 	firebaseConfig,
 	app,
@@ -36,6 +37,7 @@ export {
 	SignInEmail,
 	SignUpEmail,
 	EndSession,
+	buscarAnciano,
 	notas,
 	getNotas,
 	addNota,
