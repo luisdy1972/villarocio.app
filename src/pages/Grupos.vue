@@ -33,7 +33,9 @@ async function buscarGrupos() {
 	} catch (error) {}
 }
 
-watchEffect(() => {})
+watchEffect(() => {
+	console.log('se actualizó algún ref')
+})
 
 onMounted(() => {
 	buscarGrupos()
