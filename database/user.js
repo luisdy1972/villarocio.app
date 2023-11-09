@@ -14,10 +14,11 @@ export const user = ref({
 
 if (localStorage.getItem('sign')) {
 	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
-	console.log((user.value = userInLocalStorage.user))
 	user.value.displayName = userInLocalStorage.user.email
+	// console.log((user.value = userInLocalStorage.user))
 	// getNotas()
 }
+
 export const email = ref('')
 export const password = ref('')
 
@@ -36,6 +37,7 @@ export async function SignUpEmail() {
 		alert('Email ya fué registrado o no es valido')
 	}
 }
+
 export async function SignInEmail() {
 	try {
 		signInWithEmailAndPassword(auth, email.value, password.value).then(
@@ -56,6 +58,7 @@ export async function SignInEmail() {
 		console.error(error)
 	}
 }
+
 export async function LoginConGoogle() {
 	signInWithPopup(auth, provider)
 		.then((result) => {

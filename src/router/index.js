@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import { Home, Grupos, Agenda, Ancianos, Ministeriales } from '@/pages'
+import { Home, Grupos, Agenda, Ancianos, Ministeriales, Grupo } from '@/pages'
 
 import { Layout } from '@/view'
 const router = createRouter({
@@ -11,7 +11,11 @@ const router = createRouter({
 			component: Layout,
 			children: [
 				{ path: '/', component: Home },
-				{ path: '/grupos', component: Grupos },
+				{
+					path: '/grupos',
+					component: Grupos,
+					children: [{ path: '/grupos/:numero', component: Grupo }],
+				},
 				{
 					path: '/agenda',
 					component: Agenda,

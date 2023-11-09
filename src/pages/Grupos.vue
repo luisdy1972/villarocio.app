@@ -13,7 +13,7 @@ onMounted(() => {
 		.get(rutas.grupos)
 		.then(function (response) {
 			grupos.value = response.data
-			console.log(grupos.value)
+			// console.log(grupos.value)
 		})
 		.catch(function (error) {
 			console.error(error)
@@ -36,6 +36,7 @@ onMounted(() => {
 				:linkInforme="grupo.linkInforme"
 			/>
 		</div>
+		<RouterView></RouterView>
 	</section>
 </template>
 
