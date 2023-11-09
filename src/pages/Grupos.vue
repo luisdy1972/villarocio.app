@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 import { CardGrup, Loading } from '@/components'
 
@@ -50,6 +50,15 @@ onMounted(() => {
 				:numero="grupo.numero"
 				:responsable="grupo.responsable"
 			/>
+			<!-- agregar grupo -->
+			<div v-if="user.displayName" class="card card-person m-1">
+				<h5 class="card-header">Agregar Grupo</h5>
+				<div class="card-body d-flex flex-column justify-content-center">
+					<input type="text" placeholder="Nombre" class="form-control" />
+					<input type="number" placeholder="Número" class="form-control mt-3" />
+					<a class="btn btn-primary mt-3">Agregar</a>
+				</div>
+			</div>
 		</div>
 		<div id="listado-grupo">
 			<RouterView></RouterView>
