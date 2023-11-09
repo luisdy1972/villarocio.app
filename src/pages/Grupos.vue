@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
 
 import { CardGrup, Loading } from '@/components'
 
@@ -32,6 +32,8 @@ async function buscarGrupos() {
 		// console.log(grupos.value)
 	} catch (error) {}
 }
+
+watchEffect(() => {})
 
 onMounted(() => {
 	buscarGrupos()
