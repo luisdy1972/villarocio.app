@@ -50,6 +50,7 @@ function actualizarAnciano(id, nombre, link) {
 	ancianoActualizar.value.nombre = nombre
 	ancianoActualizar.value.linkAgenda = link
 }
+
 async function actualizarAncianoOK(id, datos) {
 	try {
 		await setDoc(doc(db, 'ancianos', id), datos)

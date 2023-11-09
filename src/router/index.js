@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
 import { Home, Grupos, Agenda, Ancianos, Ministeriales, Grupo } from '@/pages'
-
 import { Layout } from '@/view'
+
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
@@ -14,7 +13,13 @@ const router = createRouter({
 				{
 					path: '/grupos',
 					component: Grupos,
-					children: [{ path: '/grupos/:numero', component: Grupo }],
+					children: [
+						{
+							path: '/grupos/:numero',
+							meta: { id: 'lista' },
+							component: Grupo,
+						},
+					],
 				},
 				{
 					path: '/agenda',
@@ -29,7 +34,12 @@ const router = createRouter({
 	],
 	scrollBehavior(to, from, savedPosition) {
 		// console.log(to, from)
-		if (to.path == '/agenda/ancianos' || to.path == '/agenda/ministeriales') {
+		if (to.meta.id == 'lista') {
+			return { el: '#listado-grupo', top: 80 }
+		} else if (
+			to.path == '/agenda/ancianos' ||
+			to.path == '/agenda/ministeriales'
+		) {
 			return { el: '#asignaciones', top: 150 }
 		} else {
 			return { top: 0 }

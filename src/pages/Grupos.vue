@@ -1,42 +1,59 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-import { CardGrup } from '@/components'
+import { CardGrup, Loading } from '@/components'
 
-import axios from 'axios'
-import rutas from '@/assets/js/rutasBD'
+import { user, db } from '@db'
+import {
+	collection,
+	doc,
+	query,
+	getDocs,
+	addDoc,
+	setDoc,
+	deleteDoc,
+} from 'firebase/firestore'
 
-const grupos = ref([''])
+const grupos = ref([])
+
+async function buscarGrupos() {
+	try {
+		const gruposRef = collection(db, 'grupos')
+		const q = query(gruposRef)
+		let QuerySnapshot = await getDocs(q)
+		QuerySnapshot.forEach((doc) => {
+			const grupo = {
+				id: doc.id,
+				numero: doc.data().numero,
+				responsable: doc.data().responsable,
+			}
+			grupos.value.push(grupo)
+		})
+		// console.log(grupos.value)
+	} catch (error) {}
+}
 
 onMounted(() => {
-	axios
-		.get(rutas.grupos)
-		.then(function (response) {
-			grupos.value = response.data
-			// console.log(grupos.value)
-		})
-		.catch(function (error) {
-			console.error(error)
-		})
-
-		.catch(function (err) {
-			console.error(err)
-		})
+	buscarGrupos()
 })
 </script>
 <template>
 	<section class="container">
 		<h2 class="pt-4 pb-3 mb-4 border-bottom">Gupos</h2>
+		<div v-if="grupos.length == 0">
+			<Loading></Loading>
+		</div>
 		<div class="d-flex justify-content-center flex-wrap mb-5">
 			<CardGrup
 				class="m-1"
 				v-for="grupo in grupos"
 				:numero="grupo.numero"
-				:responsable="grupo.resposable"
-				:linkInforme="grupo.linkInforme"
+				:responsable="grupo.responsable"
 			/>
 		</div>
-		<RouterView></RouterView>
+		<div id="listado-grupo">
+			<RouterView></RouterView>
+		</div>
 	</section>
 </template>
 

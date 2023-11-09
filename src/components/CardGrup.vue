@@ -1,9 +1,12 @@
 <script setup>
+import { RouterLink } from 'vue-router'
+
 const props = defineProps({
 	numero: Number,
 	responsable: String,
-	linkInforme: String,
 })
+
+const ruta = `/grupos/${props.numero}`
 </script>
 
 <template>
@@ -11,9 +14,10 @@ const props = defineProps({
 		<h5 class="card-header">Grupo {{ props.numero }}</h5>
 		<div class="card-body">
 			<h5 class="card-title">{{ props.responsable }}</h5>
-			<a :href="props.linkInforme" target="_blank" class="btn btn-primary mt-3"
+			<RouterLink class="btn btn-primary mt-3" :to="ruta">Informe</RouterLink>
+			<!-- <a :href="props.linkInforme" target="_blank" class="btn btn-primary mt-3"
 				>Informe</a
-			>
+			> -->
 		</div>
 	</div>
 </template>
