@@ -1,12 +1,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { user, db } from '@db'
+import {
+	collection,
+	doc,
+	query,
+	getDocs,
+	addDoc,
+	setDoc,
+	deleteDoc,
+	where,
+} from 'firebase/firestore'
 
-function parametro() {
-	const { params } = useRoute()
-	return params
-}
-
+const { params } = useRoute()
+const publicadores = ref([])
 const nuevoPublicador = ref({
 	nombre: '',
 	bautizado: false,
@@ -16,78 +24,142 @@ const nuevoPublicador = ref({
 	horas: 0,
 	comentario: '',
 	estudios: 0,
-	grupo: Number(parametro()),
+	grupo: Number(params.numero),
 	informe: false,
 	ministerial: false,
 })
 
-onMounted(() => {})
+async function publicadoresPorGrupo(numeroGrupo) {
+	let publicador = {}
+	try {
+		console.log(numeroGrupo)
+		const collectionRef = collection(db, 'publicadores')
+		const q = query(collectionRef, where('grupo', '==', Number(numeroGrupo)))
+		let consulta = await getDocs(q)
+		consulta.forEach((doc) => {
+			// console.log(doc)
+			publicador = doc.data()
+			publicador.id = doc.id
+			// console.log(publicador)
+			publicadores.value.push(publicador)
+			console.log(publicadores.value)
+		})
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+function agregarPublicador() {}
+
+onMounted(() => {
+	publicadoresPorGrupo(params.numero)
+})
 </script>
 <template>
-	<div class="container">
-		<form>
-			<div class="d-flex flex-column">
-				<h2>Grupo {{ parametro().numero }}</h2>
+	<ul id="listado-grupo" class="list-group mb-5">
+		<div class="list-group-item active">Grupo Número {{ params.numero }}</div>
+		<div class="list-group-item"><b>Publicadores</b></div>
+		<li
+			v-for="publicador in publicadores"
+			class="list-group-item list-group-item-action"
+		>
+			{{ publicador.nombre }}
+		</li>
+		<div class="list-group-item"><b>Precursores Auxiliares</b></div>
+		<div class="list-group-item"><b>Precursores Regulares</b></div>
+		<div class="list-group-item"><b>Precursores Especiales</b></div>
+	</ul>
 
-				__________________________________
-				<p>Nuevo Publicador</p>
-				<div>
-					<label for="nombre">Nombre: </label>
-					<input type="text" id="nombre" :model="nuevoPublicador.nombre" />
+	<!-- agregar Publicador -->
+	<div class="container d-flex justify-content-center">
+		<form
+			@submit.prevent="agregarPublicador()"
+			id="nuevo-publicador"
+			class="card"
+		>
+			<h4 class="card-header">Añadir nuevo publicador</h4>
+			<div class="card-body m-2 d-flex flex-column">
+				<div class="input-group mb-3">
+					<span class="input-group-text" for="nombre">Nombre: </span>
+					<input
+						type="text"
+						class="form-control"
+						id="nombre"
+						required
+						:model="nuevoPublicador.nombre"
+					/>
 				</div>
-
-				<div>
+				<div class="ms-3">
 					<label for="bautizado">Bautizado</label>
 					<input
 						type="checkbox"
+						class="form-check-input ms-1"
 						id="bautizado"
 						:model="nuevoPublicador.bautizado"
 					/>
-				</div>
-				<div>
 					<div>
-						<label for="auxiliar">Publicador</label>
-						<input type="radio" checked name="precursor" />
+						<div>
+							<label for="publicador">Publicador</label>
+							<input
+								class="ms-2"
+								type="radio"
+								id="publicador"
+								checked
+								name="precursor"
+							/>
+						</div>
+						<div class="d-flex gap-4">
+							<div>
+								<label for="auxiliar">Precursor Auxiliar</label>
+								<input
+									class="ms-2"
+									type="radio"
+									name="precursor"
+									id="auxiliar"
+									:model="nuevoPublicador.auxiliar"
+								/>
+							</div>
+							<div>
+								<label for="regular">Regular</label>
+								<input
+									class="ms-2"
+									type="radio"
+									id="regular"
+									name="precursor"
+									:model="nuevoPublicador.regular"
+								/>
+							</div>
+						</div>
 					</div>
-					<div>
-						<label for="auxiliar">Precursor Auxiliar</label>
-						<input
-							type="radio"
-							name="precursor"
-							id="auxiliar"
-							:model="nuevoPublicador.auxiliar"
-						/>
-					</div>
-					<div>
-						<label for="regular">Precursor Regular</label>
-						<input
-							type="radio"
-							id="regular"
-							name="precursor"
-							:model="nuevoPublicador.regular"
-						/>
+					<div class="d-flex gap-4">
+						<div>
+							<label for="ministerial">Ministerial</label>
+							<input
+								class="form-check-input ms-1"
+								type="checkbox"
+								id="ministerial"
+								:model="nuevoPublicador.ministerial"
+							/>
+						</div>
+						<div>
+							<label for="anciano">Anciano</label>
+							<input
+								class="form-check-input ms-1"
+								type="checkbox"
+								id="anciano"
+								:model="nuevoPublicador.anciano"
+							/>
+						</div>
 					</div>
 				</div>
-				<div>
-					<label for="ministerial">Ministerial</label>
-					<input
-						type="checkbox"
-						id="ministerial"
-						:model="nuevoPublicador.ministerial"
-					/>
-				</div>
-				<div>
-					<label for="anciano">Anciano</label>
-					<input
-						type="checkbox"
-						id="anciano"
-						:model="nuevoPublicador.anciano"
-					/>
-				</div>
+				<button class="btn btn-primary mt-3">Agregar</button>
 			</div>
-			<button type="submit">Agregar</button>
 		</form>
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+#nuevo-publicador {
+	max-width: 40%;
+}
+</style>
