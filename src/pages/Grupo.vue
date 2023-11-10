@@ -61,7 +61,7 @@ onMounted(() => {
 		<div class="list-group-item"><b>Publicadores</b></div>
 		<li
 			v-for="publicador in publicadores"
-			class="list-group-item list-group-item-action"
+			class="list-group-item list-group-item-action ps-4"
 		>
 			{{ publicador.nombre }}
 		</li>
