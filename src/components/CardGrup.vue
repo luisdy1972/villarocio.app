@@ -12,9 +12,11 @@ const ruta = `/grupos/${props.numero}`
 <template>
 	<div class="card card-person">
 		<h5 class="card-header">Grupo {{ props.numero }}</h5>
-		<div class="card-body">
+		<div class="card-body d-flex flex-column">
 			<h5 class="card-title">{{ props.responsable }}</h5>
-			<RouterLink class="btn btn-primary mt-3" :to="ruta">Informe</RouterLink>
+			<div>
+				<RouterLink class="btn btn-primary mt-3" :to="ruta">Listado</RouterLink>
+			</div>
 			<!-- <a :href="props.linkInforme" target="_blank" class="btn btn-primary mt-3"
 				>Informe</a
 			> -->

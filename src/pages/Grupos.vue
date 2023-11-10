@@ -12,6 +12,7 @@ import {
 	addDoc,
 	setDoc,
 	deleteDoc,
+	orderBy,
 } from 'firebase/firestore'
 
 const grupos = ref([])
@@ -19,7 +20,7 @@ const grupos = ref([])
 async function buscarGrupos() {
 	try {
 		const gruposRef = collection(db, 'grupos')
-		const q = query(gruposRef)
+		const q = query(gruposRef, orderBy('numero'))
 		let QuerySnapshot = await getDocs(q)
 		QuerySnapshot.forEach((doc) => {
 			const grupo = {

@@ -13,13 +13,11 @@ const router = createRouter({
 				{
 					path: '/grupos',
 					component: Grupos,
-					children: [
-						{
-							path: '/grupos/:numero',
-							meta: { id: 'lista' },
-							component: Grupo,
-						},
-					],
+				},
+				{
+					path: '/grupos/:numero',
+					meta: { id: 'lista' },
+					component: Grupo,
 				},
 				{
 					path: '/agenda',
@@ -34,12 +32,7 @@ const router = createRouter({
 	],
 	scrollBehavior(to, from, savedPosition) {
 		// console.log(to, from)
-		if (to.meta.id == 'lista') {
-			return { el: '#listado-grupo', top: 80 }
-		} else if (
-			to.path == '/agenda/ancianos' ||
-			to.path == '/agenda/ministeriales'
-		) {
+		if (to.path == '/agenda/ancianos' || to.path == '/agenda/ministeriales') {
 			return { el: '#asignaciones', top: 150 }
 		} else {
 			return { top: 0 }
