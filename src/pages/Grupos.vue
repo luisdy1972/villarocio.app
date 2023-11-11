@@ -1,9 +1,9 @@
 <script setup>
-import { ref, onMounted, watchEffect } from 'vue'
+import { ref, onMounted } from 'vue'
 
 import { CardGrup, Loading } from '@/components'
 
-import { user, db, buscarDocumentos } from '@db'
+import { user, buscarDocumentos, guardarActualizarDocumento } from '@db'
 
 const grupos = ref([])
 const nuevoGrupo = ref({
@@ -11,29 +11,28 @@ const nuevoGrupo = ref({
 	numero: undefined,
 })
 
-async function buscarGrupos() {
+function buscarGrupos() {
 	buscarDocumentos('grupos')
 		.then((documentos) => {
-			console.log(documentos)
+			// console.log(documentos)
 			grupos.value = documentos
 		})
 		.catch((err) => {})
 }
-async function guardarNuevoGrupo() {
-	try {
-		await addDoc(collection(db, 'grupos'), nuevoGrupo.value)
+function guardarNuevoGrupo() {
+	guardarActualizarDocumento('grupos', nuevoGrupo.value).then(() => {
 		grupos.value = []
 		nuevoGrupo.value = {
 			responsable: undefined,
 			numero: undefined,
 		}
 		buscarGrupos()
-	} catch (error) {
-		console.error(error)
-	}
+	})
 }
 
-function get() {}
+function corazon() {
+	console.log('♥')
+}
 
 onMounted(() => {
 	buscarGrupos()
@@ -41,7 +40,7 @@ onMounted(() => {
 </script>
 <template>
 	<section class="container">
-		<button class="btn btn-primary" @click="get()">♥</button>
+		<button class="btn btn-primary" @click="corazon()">♥</button>
 
 		<h2 class="pt-4 pb-3 mb-4 border-bottom">Gupos</h2>
 		<div v-if="grupos.length == 0">

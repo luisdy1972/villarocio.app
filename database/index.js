@@ -42,6 +42,18 @@ async function buscarDocumentos(col) {
 	} catch (err) {}
 }
 
+async function guardarActualizarDocumento(col, data, id) {
+	try {
+		if (!id) {
+			return await addDoc(collection(db, col), data)
+		} else {
+			return await setDoc(doc(db, col, id), data)
+		}
+	} catch (error) {
+		console.error(error)
+	}
+}
+
 export {
 	firebaseConfig,
 	app,
@@ -56,4 +68,5 @@ export {
 	SignUpEmail,
 	EndSession,
 	buscarDocumentos,
+	guardarActualizarDocumento,
 }
