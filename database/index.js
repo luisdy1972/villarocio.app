@@ -28,7 +28,7 @@ auth.languageCode = 'es'
 const provider = new GoogleAuthProvider()
 const db = getFirestore(app)
 
-async function buscarDocumentos(col) {
+async function buscarDocumentos(col, condition) {
 	// el id del documento en una pripiedad del documento
 	let documentos = []
 	try {
@@ -54,6 +54,14 @@ async function guardarActualizarDocumento(col, data, id) {
 	}
 }
 
+async function eliminarDocumento(col, id) {
+	try {
+		return await deleteDoc(doc(db, col, id))
+	} catch (error) {
+		console.error(error)
+	}
+}
+
 export {
 	firebaseConfig,
 	app,
@@ -69,4 +77,5 @@ export {
 	EndSession,
 	buscarDocumentos,
 	guardarActualizarDocumento,
+	eliminarDocumento,
 }
