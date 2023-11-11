@@ -59,7 +59,9 @@ onMounted(() => {
 <template>
 	<div class="container pt-5">
 		<ul id="listado-grupo" class="list-group mb-5">
-			<div class="list-group-item active">Grupo Número {{ params.numero }}</div>
+			<div class="list-group-item active">
+				<b> Grupo Número {{ params.numero }}</b>
+			</div>
 			<div class="list-group-item"><b>Publicadores</b></div>
 			<li
 				v-for="publicador in publicadores"

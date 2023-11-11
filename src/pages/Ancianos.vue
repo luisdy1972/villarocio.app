@@ -167,7 +167,7 @@ onMounted(() => {
 				<!-- eliminarAnciano -->
 				<button
 					v-if="user.displayName"
-					v-on:click="eliminarAnciano(anciano.id, anciano.nombre)"
+					@click="eliminarAnciano(anciano.id, anciano.nombre)"
 					type="button"
 					class="btn btn-outline-danger ms-2"
 				>

@@ -3,40 +3,37 @@ import { ref, onMounted, watchEffect } from 'vue'
 
 import { CardGrup, Loading } from '@/components'
 
-import { user, db } from '@db'
-import {
-	collection,
-	doc,
-	query,
-	getDocs,
-	addDoc,
-	setDoc,
-	deleteDoc,
-	orderBy,
-} from 'firebase/firestore'
+import { user, db, buscarDocumentos } from '@db'
 
 const grupos = ref([])
+const nuevoGrupo = ref({
+	responsable: undefined,
+	numero: undefined,
+})
 
 async function buscarGrupos() {
-	try {
-		const gruposRef = collection(db, 'grupos')
-		const q = query(gruposRef, orderBy('numero'))
-		let QuerySnapshot = await getDocs(q)
-		QuerySnapshot.forEach((doc) => {
-			const grupo = {
-				id: doc.id,
-				numero: doc.data().numero,
-				responsable: doc.data().responsable,
-			}
-			grupos.value.push(grupo)
+	buscarDocumentos('grupos')
+		.then((documentos) => {
+			console.log(documentos)
+			grupos.value = documentos
 		})
-		// console.log(grupos.value)
-	} catch (error) {}
+		.catch((err) => {})
+}
+async function guardarNuevoGrupo() {
+	try {
+		await addDoc(collection(db, 'grupos'), nuevoGrupo.value)
+		grupos.value = []
+		nuevoGrupo.value = {
+			responsable: undefined,
+			numero: undefined,
+		}
+		buscarGrupos()
+	} catch (error) {
+		console.error(error)
+	}
 }
 
-watchEffect(() => {
-	console.log('se actualizó algún ref')
-})
+function get() {}
 
 onMounted(() => {
 	buscarGrupos()
@@ -44,6 +41,8 @@ onMounted(() => {
 </script>
 <template>
 	<section class="container">
+		<button class="btn btn-primary" @click="get()">♥</button>
+
 		<h2 class="pt-4 pb-3 mb-4 border-bottom">Gupos</h2>
 		<div v-if="grupos.length == 0">
 			<Loading></Loading>
@@ -54,15 +53,36 @@ onMounted(() => {
 				v-for="grupo in grupos"
 				:numero="grupo.numero"
 				:responsable="grupo.responsable"
+				:id="grupo.id"
 			/>
 			<!-- agregar grupo -->
 			<div v-if="user.displayName" class="card card-person m-1">
 				<h5 class="card-header">Agregar Grupo</h5>
-				<div class="card-body d-flex flex-column justify-content-center">
-					<input type="text" placeholder="Nombre" class="form-control" />
-					<input type="number" placeholder="Número" class="form-control mt-3" />
-					<a class="btn btn-primary mt-3">Agregar</a>
-				</div>
+				<form
+					@submit.prevent="guardarNuevoGrupo()"
+					class="card-body d-flex flex-column justify-content-center"
+				>
+					<input
+						type="text"
+						placeholder="Responsable"
+						v-model="nuevoGrupo.responsable"
+						class="form-control"
+					/>
+					<input
+						type="number"
+						placeholder="Número"
+						v-model="nuevoGrupo.numero"
+						class="form-control mt-3"
+					/>
+					<button
+						v-if="nuevoGrupo.responsable && nuevoGrupo.numero"
+						type="submit"
+						class="btn btn-primary mt-3"
+					>
+						Agregar
+					</button>
+					<a v-else class="btn btn-primary mt-3">Agregar</a>
+				</form>
 			</div>
 		</div>
 		<div id="listado-grupo">
