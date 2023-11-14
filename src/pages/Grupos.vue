@@ -5,6 +5,8 @@ import { CardGrup, Loading } from '@/components'
 
 import { user, buscarDocumentos, guardarActualizarDocumento } from '@db'
 
+import { orderBy } from 'firebase/firestore'
+
 const grupos = ref([])
 const nuevoGrupo = ref({
 	responsable: undefined,
@@ -14,7 +16,6 @@ const nuevoGrupo = ref({
 function buscarGrupos() {
 	buscarDocumentos('grupos')
 		.then((documentos) => {
-			// console.log(documentos)
 			grupos.value = documentos
 		})
 		.catch((err) => {})
@@ -30,8 +31,13 @@ function guardarNuevoGrupo() {
 	})
 }
 
+function recargarGrupos() {
+	grupos.value = []
+	buscarGrupos()
+}
+
 function corazon() {
-	console.log('♥')
+	console.log('♥ Grupos')
 }
 
 onMounted(() => {
@@ -40,8 +46,7 @@ onMounted(() => {
 </script>
 <template>
 	<section class="container">
-		<button class="btn btn-primary" @click="corazon()">♥</button>
-
+		<!-- <button class="btn btn-primary" @click="corazon()">♥</button> -->
 		<h2 class="pt-4 pb-3 mb-4 border-bottom">Gupos</h2>
 		<div v-if="grupos.length == 0">
 			<Loading></Loading>
@@ -50,6 +55,7 @@ onMounted(() => {
 			<CardGrup
 				class="m-1"
 				v-for="grupo in grupos"
+				@eliminarGrupo="recargarGrupos()"
 				:numero="grupo.numero"
 				:responsable="grupo.responsable"
 				:id="grupo.id"

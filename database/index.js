@@ -31,15 +31,37 @@ const db = getFirestore(app)
 async function buscarDocumentos(col, condition) {
 	// el id del documento en una pripiedad del documento
 	let documentos = []
-	try {
-		const consulta = await getDocs(query(collection(db, col)))
-		consulta.forEach((doc) => {
-			let documento = doc.data()
-			documento.id = doc.id
-			documentos.push(documento)
-		})
-		return documentos
-	} catch (err) {}
+	if (condition) {
+		try {
+			const consulta = await getDocs(
+				query(
+					collection(db, col),
+					where(condition[0], condition[1], condition[2])
+				)
+			)
+			consulta.forEach((doc) => {
+				let documento = doc.data()
+				documento.id = doc.id
+				documentos.push(documento)
+			})
+			return documentos
+		} catch (err) {
+			console.error(err)
+		}
+	} else {
+		// el id del documento en una pripiedad del documento
+		try {
+			const consulta = await getDocs(query(collection(db, col)))
+			consulta.forEach((doc) => {
+				let documento = doc.data()
+				documento.id = doc.id
+				documentos.push(documento)
+			})
+			return documentos
+		} catch (err) {
+			console.error(err)
+		}
+	}
 }
 
 async function guardarActualizarDocumento(col, data, id) {

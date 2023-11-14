@@ -34,6 +34,7 @@
 						<img
 							src="@/assets/img/TargetasTerritorio(Obtimizado).jpg"
 							class="d-block w-100"
+							height="600"
 							alt="..."
 						/>
 						<div class="carousel-caption d-none d-md-block">

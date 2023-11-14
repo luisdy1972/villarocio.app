@@ -1,20 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { user, db } from '@db'
-import {
-	collection,
-	doc,
-	query,
-	getDocs,
-	addDoc,
-	setDoc,
-	deleteDoc,
-	where,
-} from 'firebase/firestore'
+import { user, db, buscarDocumentos, guardarActualizarDocumento } from '@db'
 
-let { params } = useRoute()
-
+const { params } = useRoute()
 const publicadores = ref([])
 const nuevoPublicador = ref({
 	nombre: '',
@@ -30,30 +19,22 @@ const nuevoPublicador = ref({
 	ministerial: false,
 })
 
-async function publicadoresPorGrupo(numeroGrupo) {
-	let publicador = {}
-	try {
-		console.log(numeroGrupo)
-		const collectionRef = collection(db, 'publicadores')
-		const q = query(collectionRef, where('grupo', '==', Number(numeroGrupo)))
-		let consulta = await getDocs(q)
-		consulta.forEach((doc) => {
-			// console.log(doc)
-			publicador = doc.data()
-			publicador.id = doc.id
-			// console.log(publicador)
-			publicadores.value.push(publicador)
-			console.log(publicadores.value)
+function buscarPublicadoresPorGrupo(numeroGrupo) {
+	// console.log('Grupo: ' + Number(numeroGrupo))
+	buscarDocumentos('publicadores', ['grupo', '==', Number(numeroGrupo)])
+		.then((res) => {
+			console.log(res)
+			publicadores.value = res
 		})
-	} catch (error) {
-		console.error(error)
-	}
+		.catch((err) => {
+			console.error(err)
+		})
 }
 
 function agregarPublicador() {}
 
 onMounted(() => {
-	publicadoresPorGrupo(params.numero)
+	buscarPublicadoresPorGrupo(params.numero)
 })
 </script>
 <template>
@@ -165,6 +146,6 @@ onMounted(() => {
 
 <style scoped>
 #nuevo-publicador {
-	max-width: 40%;
+	min-width: 40%;
 }
 </style>
