@@ -750,6 +750,10 @@ input {
 	background-color: transparent;
 }
 
+input:focus {
+	background-color: transparent;
+}
+
 .border-none {
 	border: none;
 }
