@@ -8,14 +8,13 @@ import {
 } from 'firebase/auth'
 
 export const user = ref({
-	displayName: '',
-	uid: '',
+	displayName: undefined,
+	uid: undefined,
 })
 
 if (localStorage.getItem('sign')) {
 	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
 	user.value = userInLocalStorage.user
-	// console.log(user.value)
 }
 
 export const email = ref('')
@@ -79,6 +78,6 @@ export async function LoginConGoogle() {
 export async function EndSession() {
 	console.log('Adios ✌', user.value.displayName)
 	user.value = {}
-	localStorage.clear('signEmail')
+	localStorage.clear()
 	signOut(auth)
 }
