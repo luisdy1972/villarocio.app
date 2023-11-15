@@ -132,28 +132,35 @@ function registrar() {
 					>
 						Iniciar con Google
 					</button>
-					<form>
+					<form @submit.prevent="SignInEmail()">
 						<div class="mb-3">
-							<label for="recipient-name" class="col-form-label">
-								Usuario
-							</label>
-							<input type="email" v-model="email" class="form-control" />
+							<label for="email" class="col-form-label"> Usuario </label>
+							<input
+								id="email"
+								type="email"
+								pattern=".+@example\.com"
+								size="30"
+								required
+								placeholder="Correo"
+								v-model="email"
+								class="form-control"
+							/>
 						</div>
 						<div class="mb-3">
-							<label for="message-text" class="col-form-label">
-								Contraseña
-							</label>
-							<input type="password" v-model="password" class="form-control" />
+							<label for="pass" class="col-form-label"> Contraseña </label>
+							<input
+								id="pass"
+								type="password"
+								required
+								placeholder="contraseña"
+								v-model="password"
+								class="form-control"
+							/>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button
-						type="button"
-						class="btn btn-primary"
-						@click="SignInEmail()"
-						data-bs-dismiss="modal"
-					>
+					<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
 						Entrar
 					</button>
 					<button

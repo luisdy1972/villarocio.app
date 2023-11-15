@@ -9,9 +9,11 @@ import {
 } from '@db'
 
 import { Loading, Notification } from '@components'
-
 const { params } = useRoute()
 const publicadores = ref([])
+const precursoresA = ref([])
+const precursoresR = ref([])
+
 const nuevoPublicador = ref({
 	nombre: '',
 	bautizado: false,
@@ -32,7 +34,22 @@ function buscarPublicadoresPorGrupo(numeroGrupo) {
 	buscarDocumentos('publicadores', ['grupo', '==', Number(numeroGrupo)])
 		.then((res) => {
 			// console.log(res)
-			publicadores.value = res
+			let pubA = []
+			let pubR = []
+			let pubN = []
+			for (let pub of res) {
+				if (pub.auxiliar) {
+					pubA.push(pub)
+				}
+				if (pub.regular) {
+					pubR.push(pub)
+				} else {
+					pubN.push(pub)
+				}
+			}
+			publicadores.value = pubN
+			precursoresA.value = pubA
+			precursoresR.value = pubR
 		})
 		.catch((err) => {
 			console.error(err)
@@ -65,9 +82,6 @@ function agregarPublicador() {
 }
 
 function onChange(id, data) {
-	// console.log(publicadores.value)
-	console.log('cambio!')
-
 	actualizarDocumento('publicadores', id, data)
 		.then((result) => {
 			let estudios = 0
@@ -90,6 +104,7 @@ onMounted(() => {
 	<div class="container pt-5">
 		<h3 class="active">Grupo Número {{ params.numero }}</h3>
 		<Loading v-if="publicadores.length == 0"></Loading>
+		<!-- publicadores -->
 		<table
 			v-else
 			class="table table-responsive table-sm mt-3 table-bordered table-hover"
@@ -111,7 +126,7 @@ onMounted(() => {
 					</td>
 					<td v-if="user.uid">
 						<input
-							class="form-check-input ms-5"
+							class="form-check-input ms-5 predico"
 							type="checkbox"
 							v-model="publicador.informe"
 							@change="onChange(publicador.id, { informe: publicador.informe })"
@@ -151,9 +166,147 @@ onMounted(() => {
 			</tfoot>
 		</table>
 
-		<div class="list-group-item"><b>Precursores Auxiliares</b></div>
-		<div class="list-group-item"><b>Precursores Regulares</b></div>
-		<div class="list-group-item"><b>Precursores Especiales</b></div>
+		<!-- precursores Auxiliares -->
+		<table
+			class="table table-responsive table-sm mt-3 table-bordered table-hover"
+		>
+			<thead class="table-primary">
+				<tr>
+					<th scope="col">Precursores Auxiliares</th>
+					<th v-if="user.uid" scope="col">¿Participó en la predicación?</th>
+					<th v-if="user.uid" scope="col">Horas</th>
+					<th v-if="user.uid" scope="col">Estudios</th>
+					<th v-if="user.uid" scope="col">Comentario</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr scope="row" v-for="publicador in precursoresA">
+					<td>
+						{{ publicador.nombre }}
+					</td>
+					<td v-if="user.uid">
+						<input
+							class="form-check-input ms-5 predico"
+							type="checkbox"
+							v-model="publicador.informe"
+							@change="onChange(publicador.id, { informe: publicador.informe })"
+						/>
+					</td>
+					<td v-if="user.uid">
+						<input
+							type="number"
+							v-model="publicador.horas"
+							@input="onChange(publicador.id, { estudios: publicador.horas })"
+							class="form-control"
+						/>
+					</td>
+					<td v-if="user.uid">
+						<input
+							type="number"
+							v-model="publicador.estudios"
+							@input="
+								onChange(publicador.id, { estudios: publicador.estudios })
+							"
+							class="form-control"
+						/>
+					</td>
+					<td v-if="user.uid">
+						<input
+							class="form-control"
+							type="text"
+							v-model="publicador.comentario"
+							@input="
+								onChange(publicador.id, { comentario: publicador.comentario })
+							"
+						/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot class="table-primary">
+				<tr v-if="user.uid">
+					<th>Total</th>
+					<td></td>
+					<td>
+						<b>{{ '0' }}</b>
+					</td>
+					<td>
+						<b>{{ '0' }}</b>
+					</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<!-- precursores Regulares -->
+		<table
+			class="table table-responsive table-sm mt-3 table-bordered table-hover"
+		>
+			<thead class="table-primary">
+				<tr>
+					<th scope="col">Precursores Regulares</th>
+					<th v-if="user.uid" scope="col">¿Participó en la predicación?</th>
+					<th v-if="user.uid" scope="col">Horas</th>
+					<th v-if="user.uid" scope="col">Estudios</th>
+					<th v-if="user.uid" scope="col">Comentario</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr scope="row" v-for="publicador in precursoresR">
+					<td>
+						{{ publicador.nombre }}
+					</td>
+					<td v-if="user.uid">
+						<input
+							class="form-check-input ms-5 predico"
+							type="checkbox"
+							v-model="publicador.informe"
+							@change="onChange(publicador.id, { informe: publicador.informe })"
+						/>
+					</td>
+					<td v-if="user.uid">
+						<input
+							type="number"
+							v-model="publicador.horas"
+							@input="onChange(publicador.id, { estudios: publicador.horas })"
+							class="form-control"
+						/>
+					</td>
+					<td v-if="user.uid">
+						<input
+							type="number"
+							v-model="publicador.estudios"
+							@input="
+								onChange(publicador.id, { estudios: publicador.estudios })
+							"
+							class="form-control"
+						/>
+					</td>
+					<td v-if="user.uid">
+						<input
+							class="form-control"
+							type="text"
+							v-model="publicador.comentario"
+							@input="
+								onChange(publicador.id, { comentario: publicador.comentario })
+							"
+						/>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot class="table-primary">
+				<tr v-if="user.uid">
+					<th>Total</th>
+					<td></td>
+					<td>
+						<b>{{ '0' }}</b>
+					</td>
+					<td>
+						<b>{{ '0' }}</b>
+					</td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
 
 		<!-- agregar Publicador -->
 		<div v-if="user.uid" class="container d-flex justify-content-center">
@@ -245,6 +398,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.predico {
+	min-height: 2rem;
+	min-width: 2rem;
+}
 #nuevo-publicador {
 	min-width: 40%;
 }
