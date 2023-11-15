@@ -134,25 +134,25 @@ function registrar() {
 					</button>
 					<form @submit.prevent="SignInEmail()">
 						<div class="mb-3">
-							<label for="email" class="col-form-label"> Usuario </label>
+							<label for="email" class="col-form-label">Usuario</label>
 							<input
 								id="email"
 								type="email"
 								pattern=".+@example\.com"
 								size="30"
 								required
-								placeholder="Correo"
+								placeholder="Correo electronico"
 								v-model="email"
 								class="form-control"
 							/>
 						</div>
 						<div class="mb-3">
-							<label for="pass" class="col-form-label"> Contraseña </label>
+							<label for="pass" class="col-form-label">Contraseña</label>
 							<input
 								id="pass"
 								type="password"
 								required
-								placeholder="contraseña"
+								placeholder="Contraseña"
 								v-model="password"
 								class="form-control"
 							/>
