@@ -24,11 +24,10 @@ function registrar() {
 			<RouterLink to="/" style="text-decoration: none; color: black">
 				<h1>Villa Rocío</h1>
 			</RouterLink>
-			<!-- <a v-if="user.displayName == undefined" href="/">Welcome</a> -->
 		</div>
 		<div
 			class="d-flex align-items-center gap-2 me-2"
-			v-if="user.displayName == undefined"
+			v-if="user.uid == undefined"
 		>
 			<button
 				type="button"
@@ -132,7 +131,7 @@ function registrar() {
 					>
 						Iniciar con Google
 					</button>
-					<form @submit.prevent="SignInEmail()">
+					<form @submit.prevent="">
 						<div class="mb-3">
 							<label for="email" class="col-form-label">Usuario</label>
 							<input
@@ -160,7 +159,12 @@ function registrar() {
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+					<button
+						type="button"
+						@click="SignInEmail()"
+						class="btn btn-primary"
+						data-bs-dismiss="modal"
+					>
 						Entrar
 					</button>
 					<button

@@ -8,7 +8,6 @@ import {
 } from 'firebase/auth'
 
 export const user = ref({
-	displayName: undefined,
 	uid: undefined,
 })
 
@@ -40,15 +39,12 @@ export async function SignInEmail() {
 	try {
 		signInWithEmailAndPassword(auth, email.value, password.value).then(
 			(result) => {
-				// console.log(result)
 				localStorage.setItem('sign', JSON.stringify(result))
 				console.log(JSON.parse(localStorage.getItem('sign')))
 				user.value = result.user
-				user.value.displayName = result.user.email
-				console.log('Login 👌', user.value.displayName)
+				console.log('Login 👌', user.value.uid)
 				email.value = ''
 				password.value = ''
-				// getNotas()
 			}
 		)
 	} catch (error) {
@@ -66,7 +62,7 @@ export async function LoginConGoogle() {
 			// console.log(token)
 			localStorage.setItem('sign', JSON.stringify(result))
 			user.value = result.user
-			console.log('Login 👌', user.value.displayName)
+			console.log('Login 👌', user.value.uid)
 			// getNotas()
 		})
 		.catch((error) => {
@@ -76,7 +72,7 @@ export async function LoginConGoogle() {
 }
 
 export async function EndSession() {
-	console.log('Adios ✌', user.value.displayName)
+	console.log('Adios ✌', user.value.uid)
 	user.value = {}
 	localStorage.clear()
 	signOut(auth)

@@ -136,7 +136,7 @@ onMounted(() => {
 				</button>
 				<!-- editar Anciano -->
 				<button
-					v-if="user.displayName"
+					v-if="user.uid"
 					@click="
 						actualizarAnciano(anciano.id, anciano.nombre, anciano.linkAgenda)
 					"
@@ -165,7 +165,7 @@ onMounted(() => {
 				</button>
 				<!-- eliminarAnciano -->
 				<button
-					v-if="user.displayName"
+					v-if="user.uid"
 					v-on:click="eliminarAnciano(anciano.id, anciano.nombre)"
 					type="button"
 					class="btn btn-outline-danger ms-2"
@@ -191,7 +191,7 @@ onMounted(() => {
 				<Loading v-if="ancianos.length == 0" />
 			</div>
 			<!-- nuevo Anciano -->
-			<div v-if="user.displayName" class="mt-4">
+			<div v-if="user.uid" class="mt-4">
 				<button
 					type="button"
 					class="btn btn-outline-success"
@@ -222,7 +222,7 @@ onMounted(() => {
 	</ul>
 	<!-- modal nuevo anciano -->
 	<div
-		v-if="user.displayName"
+		v-if="user.uid"
 		class="modal fade"
 		id="modal-nuevo-anciano"
 		tabindex="-1"
@@ -294,7 +294,7 @@ onMounted(() => {
 	</div>
 	<!-- modal Editar anciano -->
 	<div
-		v-if="user.displayName"
+		v-if="user.uid"
 		class="modal fade"
 		id="modal-editar-anciano"
 		tabindex="-1"

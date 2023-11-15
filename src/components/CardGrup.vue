@@ -22,7 +22,7 @@ const ruta = `/grupos/${props.numero}`
 		<div class="card-header d-flex justify-content-around align-items-center">
 			<h5>Grupo {{ props.numero }}</h5>
 			<a
-				v-if="user.displayName"
+				v-if="user.uid"
 				@click="eliminarGrupo(props.id)"
 				type="button"
 				class="text-danger"

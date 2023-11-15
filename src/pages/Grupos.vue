@@ -58,7 +58,7 @@ onMounted(() => {
 				:id="grupo.id"
 			/>
 			<!-- agregar grupo -->
-			<div v-if="user.displayName" class="card card-person m-1">
+			<div v-if="user.uid" class="card card-person m-1">
 				<h5 class="card-header">Agregar Grupo</h5>
 				<form
 					@submit.prevent="guardarNuevoGrupo()"
