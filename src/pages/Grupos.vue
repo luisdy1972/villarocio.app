@@ -30,7 +30,6 @@ function guardarNuevoGrupo() {
 		buscarGrupos()
 	})
 }
-
 function recargarGrupos() {
 	grupos.value = []
 	buscarGrupos()
