@@ -746,6 +746,9 @@ input[type='number']::-webkit-outer-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
+input {
+	background-color: transparent;
+}
 
 .border-none {
 	border: none;
