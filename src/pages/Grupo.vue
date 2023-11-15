@@ -172,7 +172,7 @@ onMounted(() => {
 									<button
 										v-else
 										@click="editarCampos()"
-										class="btn btn-primary ms-4 p-1"
+										class="btn btn-primary p-1"
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -335,7 +335,7 @@ onMounted(() => {
 									<button
 										v-else
 										@click="editarCampos()"
-										class="btn btn-primary ms-4 p-1"
+										class="btn btn-primary p-1"
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -514,7 +514,7 @@ onMounted(() => {
 									<button
 										v-else
 										@click="editarCampos()"
-										class="btn btn-primary ms-4 p-1"
+										class="btn btn-primary p-1"
 									>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
