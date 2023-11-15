@@ -25,6 +25,7 @@ const nuevoPublicador = ref({
 	informe: false,
 	ministerial: false,
 })
+const estudiosPublicadores = ref(0)
 
 function buscarPublicadoresPorGrupo(numeroGrupo) {
 	// console.log('Grupo: ' + Number(numeroGrupo))
@@ -64,17 +65,22 @@ function agregarPublicador() {
 }
 
 function onChange(id, data) {
-	// console.log(data)
-	// actualizarDocumento('publicadores', id, data)
-	// 	.then((result) => {
-	// 		console.log('Valor actualizado')
-	// 	})
-	// 	.catch((err) => {
-	// 		console.error(err)
-	// 	})
-}
+	// console.log(publicadores.value)
+	console.log('cambio!')
 
-let something = ref('hola')
+	actualizarDocumento('publicadores', id, data)
+		.then((result) => {
+			let estudios = 0
+			for (let i in publicadores.value) {
+				const estudio = publicadores.value[i].estudios
+				estudios += Number(estudio)
+				estudiosPublicadores.value = estudios
+			}
+		})
+		.catch((err) => {
+			console.error(err)
+		})
+}
 
 onMounted(() => {
 	buscarPublicadoresPorGrupo(params.numero)
@@ -83,10 +89,7 @@ onMounted(() => {
 <template>
 	<div class="container pt-5">
 		<h3 class="active">Grupo Número {{ params.numero }}</h3>
-		<!-- <input type="text" v-model="something" @input="onChange(something)" /> -->
-
 		<Loading v-if="publicadores.length == 0"></Loading>
-
 		<table
 			v-else
 			class="table table-responsive table-sm mt-3 table-bordered table-hover"
@@ -108,7 +111,7 @@ onMounted(() => {
 					</td>
 					<td v-if="user.uid">
 						<input
-							class="form-check-input"
+							class="form-check-input ms-5"
 							type="checkbox"
 							v-model="publicador.informe"
 							@change="onChange(publicador.id, { informe: publicador.informe })"
@@ -140,7 +143,9 @@ onMounted(() => {
 				<tr v-if="user.uid">
 					<th>Total</th>
 					<td></td>
-					<td></td>
+					<td>
+						<b>{{ estudiosPublicadores }}</b>
+					</td>
 					<td></td>
 				</tr>
 			</tfoot>

@@ -5,8 +5,6 @@ import { CardGrup, Loading } from '@/components'
 
 import { user, buscarDocumentos, guardarActualizarDocumento } from '@db'
 
-import { orderBy } from 'firebase/firestore'
-
 const grupos = ref([])
 const nuevoGrupo = ref({
 	responsable: undefined,

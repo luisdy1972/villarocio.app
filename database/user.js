@@ -8,15 +8,14 @@ import {
 } from 'firebase/auth'
 
 export const user = ref({
-	displayName: undefined,
-	uid: String(''),
+	displayName: '',
+	uid: '',
 })
 
 if (localStorage.getItem('sign')) {
 	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
-	user.value.displayName = userInLocalStorage.user.email
-	// console.log((user.value = userInLocalStorage.user))
-	// getNotas()
+	user.value = userInLocalStorage.user
+	// console.log(user.value)
 }
 
 export const email = ref('')

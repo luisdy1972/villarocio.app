@@ -21,15 +21,10 @@ function registrar() {
 	<nav class="navbar shadow nav-bar-top-blur container-fluid fixed-top">
 		<div class="d-flex align-items-center gap-2">
 			<img class="logoVR ms-2" src="@/assets/img/favicon.png" />
-			<RouterLink
-				v-if="user.displayName == undefined"
-				to="/"
-				style="text-decoration: none; color: black"
-			>
+			<RouterLink to="/" style="text-decoration: none; color: black">
 				<h1>Villa Rocío</h1>
 			</RouterLink>
 			<!-- <a v-if="user.displayName == undefined" href="/">Welcome</a> -->
-			<h1 class="user-name" v-else href="/">{{ user.displayName }}</h1>
 		</div>
 		<div
 			class="d-flex align-items-center gap-2 me-2"
@@ -67,7 +62,7 @@ function registrar() {
 				data-bs-target="#exampleModal1"
 				data-bs-whatever="@mdo"
 			>
-				Nuevo usuario
+				Registrar
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="16"
@@ -266,10 +261,6 @@ function registrar() {
 
 h1 {
 	font-size: 1.5rem;
-}
-
-.user-name {
-	font-size: 1rem;
 }
 
 .nav-bar-top-blur {
