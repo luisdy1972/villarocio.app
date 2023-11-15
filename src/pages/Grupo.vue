@@ -1,7 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { user, buscarDocumentos, guardarActualizarDocumento } from '@db'
+import {
+	user,
+	buscarDocumentos,
+	guardarActualizarDocumento,
+	actualizarDocumento,
+} from '@db'
 
 import { Loading, Notification } from '@components'
 
@@ -58,15 +63,28 @@ function agregarPublicador() {
 		})
 }
 
+function onChange(id, data) {
+	// console.log(data)
+	// actualizarDocumento('publicadores', id, data)
+	// 	.then((result) => {
+	// 		console.log('Valor actualizado')
+	// 	})
+	// 	.catch((err) => {
+	// 		console.error(err)
+	// 	})
+}
+
+let something = ref('hola')
+
 onMounted(() => {
 	buscarPublicadoresPorGrupo(params.numero)
 })
 </script>
 <template>
 	<div class="container pt-5">
-		<h3 class="active">
-			<b> Grupo Número {{ params.numero }}</b>
-		</h3>
+		<h3 class="active">Grupo Número {{ params.numero }}</h3>
+		<!-- <input type="text" v-model="something" @input="onChange(something)" /> -->
+
 		<Loading v-if="publicadores.length == 0"></Loading>
 
 		<table
@@ -77,44 +95,49 @@ onMounted(() => {
 				<tr>
 					<!-- <th scope="col">#</th> -->
 					<th scope="col">Publicadores</th>
-					<th scope="col">¿Participó en la predicación?</th>
-					<th scope="col">Estudios</th>
-					<th scope="col">Comentario</th>
+					<th v-if="user.uid" scope="col">¿Participó en la predicación?</th>
+					<th v-if="user.uid" scope="col">Estudios</th>
+					<th v-if="user.uid" scope="col">Comentario</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr scope="row" v-for="publicador in publicadores">
-					<!-- <td>{{}}</td> -->
+					<!-- <td>#</td> -->
 					<td>
 						{{ publicador.nombre }}
 					</td>
-					<td class="input-group-sm">
+					<td v-if="user.uid">
 						<input
 							class="form-check-input"
 							type="checkbox"
-							:value="publicador.informe"
-							@change=""
+							v-model="publicador.informe"
+							@change="onChange(publicador.id, { informe: publicador.informe })"
 						/>
 					</td>
-					<td>
+					<td v-if="user.uid">
 						<input
 							type="number"
-							:value="publicador.estudios"
+							v-model="publicador.estudios"
+							@input="
+								onChange(publicador.id, { estudios: publicador.estudios })
+							"
 							class="form-control"
 						/>
 					</td>
-					<td>
+					<td v-if="user.uid">
 						<input
 							class="form-control"
-							type=""
-							:value="publicador.comentario"
-							@change=""
+							type="text"
+							v-model="publicador.comentario"
+							@input="
+								onChange(publicador.id, { comentario: publicador.comentario })
+							"
 						/>
 					</td>
 				</tr>
 			</tbody>
 			<tfoot class="table-primary">
-				<tr>
+				<tr v-if="user.uid">
 					<th>Total</th>
 					<td></td>
 					<td></td>
@@ -128,7 +151,7 @@ onMounted(() => {
 		<div class="list-group-item"><b>Precursores Especiales</b></div>
 
 		<!-- agregar Publicador -->
-		<div class="container d-flex justify-content-center">
+		<div v-if="user.uid" class="container d-flex justify-content-center">
 			<form
 				@submit.prevent="agregarPublicador()"
 				id="nuevo-publicador"
@@ -139,6 +162,7 @@ onMounted(() => {
 					<div class="input-group mb-3">
 						<span class="input-group-text" for="nombre">Nombre: </span>
 						<input
+							required
 							type="text"
 							class="form-control"
 							id="nombre"

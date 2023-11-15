@@ -67,12 +67,14 @@ onMounted(() => {
 					class="card-body d-flex flex-column justify-content-center"
 				>
 					<input
+						required
 						type="text"
 						placeholder="Responsable"
 						v-model="nuevoGrupo.responsable"
 						class="form-control"
 					/>
 					<input
+						required
 						type="number"
 						placeholder="Número"
 						v-model="nuevoGrupo.numero"

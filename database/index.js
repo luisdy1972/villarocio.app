@@ -20,6 +20,7 @@ import {
 	setDoc,
 	deleteDoc,
 	where,
+	updateDoc,
 } from 'firebase/firestore'
 
 const app = initializeApp(firebaseConfig)
@@ -28,14 +29,14 @@ auth.languageCode = 'es'
 const provider = new GoogleAuthProvider()
 const db = getFirestore(app)
 
-async function buscarDocumentos(col, condition) {
+async function buscarDocumentos(colle, condition) {
 	// el id del documento en una pripiedad del documento
 	let documentos = []
 	if (condition) {
 		try {
 			const consulta = await getDocs(
 				query(
-					collection(db, col),
+					collection(db, colle),
 					where(condition[0], condition[1], condition[2])
 				)
 			)
@@ -51,7 +52,7 @@ async function buscarDocumentos(col, condition) {
 	} else {
 		// el id del documento en una pripiedad del documento
 		try {
-			const consulta = await getDocs(query(collection(db, col)))
+			const consulta = await getDocs(query(collection(db, colle)))
 			consulta.forEach((doc) => {
 				let documento = doc.data()
 				documento.id = doc.id
@@ -64,21 +65,29 @@ async function buscarDocumentos(col, condition) {
 	}
 }
 
-async function guardarActualizarDocumento(col, data, id) {
+async function actualizarDocumento(colle, id, data) {
+	try {
+		return await updateDoc(doc(db, colle, id), data)
+	} catch (error) {
+		console.error(error)
+	}
+}
+
+async function guardarActualizarDocumento(colle, data, id) {
 	try {
 		if (!id) {
-			return await addDoc(collection(db, col), data)
+			return await addDoc(collection(db, colle), data)
 		} else {
-			return await setDoc(doc(db, col, id), data)
+			return await setDoc(doc(db, colle, id), data)
 		}
 	} catch (error) {
 		console.error(error)
 	}
 }
 
-async function eliminarDocumento(col, id) {
+async function eliminarDocumento(colle, id) {
 	try {
-		return await deleteDoc(doc(db, col, id))
+		return await deleteDoc(doc(db, colle, id))
 	} catch (error) {
 		console.error(error)
 	}
@@ -99,5 +108,6 @@ export {
 	EndSession,
 	buscarDocumentos,
 	guardarActualizarDocumento,
+	actualizarDocumento,
 	eliminarDocumento,
 }

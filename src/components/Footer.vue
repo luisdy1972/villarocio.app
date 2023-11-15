@@ -23,7 +23,7 @@
 					<h5>Índice</h5>
 					<ul class="list-unstyled">
 						<li class="mb-2">
-							<RouterLink to="/">inicio</RouterLink>
+							<RouterLink to="/">Inicio</RouterLink>
 						</li>
 						<li class="mb-2">
 							<RouterLink to="/grupos">Grupos</RouterLink>
