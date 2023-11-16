@@ -8,13 +8,17 @@ import {
 	SignUpEmail,
 	EndSession,
 } from '@db'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 const password2 = ref('')
 
 function registrar() {
 	password2.value = ''
 	SignUpEmail()
 }
+
+onMounted(() => {
+	// selector de modales
+})
 </script>
 
 <template>
@@ -33,7 +37,7 @@ function registrar() {
 				type="button"
 				class="btn btn-sm btn-primary"
 				data-bs-toggle="modal"
-				data-bs-target="#exampleModal"
+				data-bs-target="#login-modal"
 				data-bs-whatever="@mdo"
 			>
 				Iniciar Sesión
@@ -102,17 +106,18 @@ function registrar() {
 		</div>
 	</nav>
 	<!-- modal Iniciar Sesion -->
-	<div
+	<form
+		@submit.prevent="SignInEmail()"
 		class="modal fade"
-		id="exampleModal"
+		id="login-modal"
 		tabindex="-1"
-		aria-labelledby="exampleModalLabel"
+		aria-labelledby="login-modal-modalLabel"
 		aria-hidden="true"
 	>
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h2 class="modal-title fs-5" id="exampleModalLabel">
+					<h2 class="modal-title fs-5" id="login-modal-modalLabel">
 						Iniciar Sesión
 					</h2>
 					<button
@@ -124,6 +129,7 @@ function registrar() {
 				</div>
 				<div class="modal-body">
 					<button
+						type="button"
 						@click="LoginConGoogle()"
 						class="btn btn-primary"
 						role="button"
@@ -131,15 +137,14 @@ function registrar() {
 					>
 						Iniciar con Google
 					</button>
-					<form @submit.prevent="">
+					<div>
 						<div class="mb-3">
 							<label for="email" class="col-form-label">Usuario</label>
 							<input
+								required
 								id="email"
 								type="email"
-								pattern=".+@example\.com"
 								size="30"
-								required
 								placeholder="Correo electronico"
 								v-model="email"
 								class="form-control"
@@ -148,36 +153,33 @@ function registrar() {
 						<div class="mb-3">
 							<label for="pass" class="col-form-label">Contraseña</label>
 							<input
+								required
 								id="pass"
 								type="password"
-								required
 								placeholder="Contraseña"
 								v-model="password"
 								class="form-control"
 							/>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button
-						type="button"
-						@click="SignInEmail()"
+						v-if="email != '' && password != ''"
+						type="submit"
 						class="btn btn-primary"
 						data-bs-dismiss="modal"
+						aria-label="Close"
 					>
 						Entrar
 					</button>
-					<button
-						type="button"
-						class="btn btn-secondary"
-						data-bs-dismiss="modal"
-					>
-						Cerrar
+					<button v-else type="button" disabled class="btn btn-primary">
+						Entrar
 					</button>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 
 	<!-- modal Registrarse  -->
 	<div
@@ -235,7 +237,7 @@ function registrar() {
 				</div>
 				<div class="modal-footer">
 					<button
-						v-if="user != '' && password != '' && password == password2"
+						v-if="email != '' && password != '' && password == password2"
 						type="button"
 						class="btn btn-primary"
 						@click="registrar()"

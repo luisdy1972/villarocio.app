@@ -30,6 +30,7 @@ const auth = getAuth(app)
 auth.languageCode = 'es'
 const db = getFirestore(app)
 
+// evento que vigila la autenticación
 onAuthStateChanged(auth, async (userLogin) => {
 	if (!userLogin) {
 		user.value = {}

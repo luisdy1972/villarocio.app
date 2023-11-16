@@ -7,6 +7,7 @@ import {
 	signOut,
 } from 'firebase/auth'
 
+// usuario y credenciales
 const user = ref({})
 const email = ref('')
 const password = ref('')
