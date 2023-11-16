@@ -9,11 +9,6 @@ import {
 
 let user = ref({})
 
-// if (localStorage.getItem('sign')) {
-// 	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
-// 	user.value = userInLocalStorage.user
-// }
-
 const email = ref('')
 const password = ref('')
 
@@ -37,16 +32,16 @@ async function SignInEmail() {
 	try {
 		signInWithEmailAndPassword(auth, email.value, password.value).then(
 			(result) => {
-				// localStorage.setItem('sign', JSON.stringify(result))
-				// console.log(JSON.parse(localStorage.getItem('sign')))
+				// This gives you a Google Access Token. You can use it to access the Google API.
+				const credential = GoogleAuthProvider.credentialFromResult(result)
 				user.value = result.user
-				console.log('Login 👌', user.value.uid)
+				console.log('Login 👌', user.value)
 				email.value = ''
 				password.value = ''
 			}
 		)
 	} catch (error) {
-		alert('Usuario o contraseña incorrecta')
+		console.error('Usuario o contraseña incorrecta')
 		console.error(error)
 	}
 }
@@ -55,13 +50,9 @@ async function LoginConGoogle() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
 			// This gives you a Google Access Token. You can use it to access the Google API.
-			// const credential = GoogleAuthProvider.credentialFromResult(result)
-			// const token = credential.accessToken
-			// console.log(token)
-			// localStorage.setItem('sign', JSON.stringify(result))
+			const credential = GoogleAuthProvider.credentialFromResult(result)
 			user.value = result.user
-			console.log('Login 👌', user.value.uid)
-			// getNotas()
+			console.log('Login 👌', user.value)
 		})
 		.catch((error) => {
 			console.log('Login 👎🏻', 'Algo salió mal')
@@ -71,8 +62,8 @@ async function LoginConGoogle() {
 
 async function EndSession() {
 	signOut(auth).then(() => {
+		user.value = {}
 		console.log('Adios ✌', user.value.uid)
-		// localStorage.removeItem('sign')
 	})
 }
 
