@@ -32,11 +32,10 @@ const nuevoPublicador = ref({
 })
 const estudiosPublicadores = ref(0)
 
-function buscarPublicadoresPorGrupo(numeroGrupo) {
+async function buscarPublicadoresPorGrupo(numeroGrupo) {
 	// console.log('Grupo: ' + Number(numeroGrupo))
-	buscarDocumentos('publicadores', ['grupo', '==', Number(numeroGrupo)])
+	await buscarDocumentos('publicadores', ['grupo', '==', Number(numeroGrupo)])
 		.then((res) => {
-			// console.log(res)
 			let pubA = []
 			let pubR = []
 			let pubN = []
@@ -60,11 +59,12 @@ function buscarPublicadoresPorGrupo(numeroGrupo) {
 		})
 }
 
-function agregarPublicador() {
-	// console.log(nuevoPublicador.value)
-	guardarActualizarDocumento('publicadores', nuevoPublicador.value)
-		.then((result) => {
+async function agregarPublicador() {
+	await guardarActualizarDocumento('publicadores', nuevoPublicador.value)
+		.then(() => {
 			publicadores.value = []
+			precursoresA.value = []
+			precursoresR.value = []
 			nuevoPublicador.value = {
 				nombre: '',
 				bautizado: false,
@@ -86,8 +86,8 @@ function agregarPublicador() {
 }
 
 async function onChange(id, data) {
-	actualizarDocumento('publicadores', id, data)
-		.then((result) => {
+	await actualizarDocumento('publicadores', id, data)
+		.then(() => {
 			let estudios = 0
 			for (let i in publicadores.value) {
 				const estudio = publicadores.value[i].estudios
@@ -100,9 +100,9 @@ async function onChange(id, data) {
 		})
 }
 
-function actualizarPrecursor(id, data) {
-	onChange(id, data)
-		.then((result) => {
+async function actualizarPrecursor(id, data) {
+	await onChange(id, data)
+		.then(() => {
 			publicadores.value = []
 			precursoresA.value = []
 			precursoresR.value = []
