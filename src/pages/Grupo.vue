@@ -108,7 +108,9 @@ function actualizarPrecursor(id, data) {
 			precursoresR.value = []
 			buscarPublicadoresPorGrupo(params.numero)
 		})
-		.catch((err) => {})
+		.catch((err) => {
+			console.error(err)
+		})
 }
 
 function editarCampos() {

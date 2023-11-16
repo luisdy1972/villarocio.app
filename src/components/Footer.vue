@@ -3,13 +3,11 @@
 		<div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
 			<div class="d-flex justify-content-between">
 				<div class="">
-					<a
-						class="d-inline-flex align-items-center mb-2 text-body-emphasis text-decoration-none"
-						href="/"
-						aria-label="Bootstrap"
-					>
-						<span class="fs-5">Villa Rocío</span>
-					</a>
+					<span class="fs-5">
+						<RouterLink to="/">
+							<h4>Villa Rocío</h4>
+						</RouterLink>
+					</span>
 					<ul class="list-unstyled small">
 						<li class="mb-2 parrafo-futher">
 							En este sitio web, podrá: <br />
@@ -45,9 +43,9 @@
 </template>
 <script setup></script>
 <style scoped>
-li > a {
+a {
 	text-decoration: none;
-	color: gray;
+	color: rgb(59, 59, 59);
 }
 
 .parrafo-futher {

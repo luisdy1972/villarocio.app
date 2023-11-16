@@ -7,19 +7,17 @@ import {
 	signOut,
 } from 'firebase/auth'
 
-export const user = ref({
-	uid: undefined,
-})
+let user = ref({})
 
-if (localStorage.getItem('sign')) {
-	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
-	user.value = userInLocalStorage.user
-}
+// if (localStorage.getItem('sign')) {
+// 	let userInLocalStorage = JSON.parse(localStorage.getItem('sign'))
+// 	user.value = userInLocalStorage.user
+// }
 
-export const email = ref('')
-export const password = ref('')
+const email = ref('')
+const password = ref('')
 
-export async function SignUpEmail() {
+async function SignUpEmail() {
 	try {
 		createUserWithEmailAndPassword(auth, email.value, password.value).then(
 			(e) => {
@@ -35,12 +33,12 @@ export async function SignUpEmail() {
 	}
 }
 
-export async function SignInEmail() {
+async function SignInEmail() {
 	try {
 		signInWithEmailAndPassword(auth, email.value, password.value).then(
 			(result) => {
-				localStorage.setItem('sign', JSON.stringify(result))
-				console.log(JSON.parse(localStorage.getItem('sign')))
+				// localStorage.setItem('sign', JSON.stringify(result))
+				// console.log(JSON.parse(localStorage.getItem('sign')))
 				user.value = result.user
 				console.log('Login 👌', user.value.uid)
 				email.value = ''
@@ -53,14 +51,14 @@ export async function SignInEmail() {
 	}
 }
 
-export async function LoginConGoogle() {
+async function LoginConGoogle() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
 			// This gives you a Google Access Token. You can use it to access the Google API.
 			// const credential = GoogleAuthProvider.credentialFromResult(result)
 			// const token = credential.accessToken
 			// console.log(token)
-			localStorage.setItem('sign', JSON.stringify(result))
+			// localStorage.setItem('sign', JSON.stringify(result))
 			user.value = result.user
 			console.log('Login 👌', user.value.uid)
 			// getNotas()
@@ -71,9 +69,19 @@ export async function LoginConGoogle() {
 		})
 }
 
-export async function EndSession() {
-	console.log('Adios ✌', user.value.uid)
-	user.value = {}
-	localStorage.clear()
-	signOut(auth)
+async function EndSession() {
+	signOut(auth).then(() => {
+		console.log('Adios ✌', user.value.uid)
+		// localStorage.removeItem('sign')
+	})
+}
+
+export {
+	user,
+	email,
+	password,
+	EndSession,
+	LoginConGoogle,
+	SignInEmail,
+	SignUpEmail,
 }
