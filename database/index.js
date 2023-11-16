@@ -1,15 +1,6 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import firebaseConfig from './firebaseConfig'
-import {
-	user,
-	email,
-	password,
-	LoginConGoogle,
-	SignInEmail,
-	SignUpEmail,
-	EndSession,
-} from './user.js'
+import { getAuth, GoogleAuthProvider, onAuthStateChanged } from 'firebase/auth'
+import { firebaseConfig } from './firebaseConfig'
 import {
 	getFirestore,
 	collection,
@@ -23,11 +14,29 @@ import {
 	updateDoc,
 } from 'firebase/firestore'
 
+import {
+	user,
+	email,
+	password,
+	LoginConGoogle,
+	SignInEmail,
+	SignUpEmail,
+	EndSession,
+} from './user.js'
+
 const app = initializeApp(firebaseConfig)
+const provider = new GoogleAuthProvider()
 const auth = getAuth(app)
 auth.languageCode = 'es'
-const provider = new GoogleAuthProvider()
 const db = getFirestore(app)
+
+onAuthStateChanged(auth, async (userLogin) => {
+	if (!userLogin) {
+		user.value = {}
+	} else {
+		user.value = userLogin
+	}
+})
 
 async function buscarDocumentos(colle, condition) {
 	// el id del documento en una pripiedad del documento
@@ -96,9 +105,9 @@ async function eliminarDocumento(colle, id) {
 export {
 	firebaseConfig,
 	app,
-	db,
-	auth,
 	provider,
+	auth,
+	db,
 	user,
 	email,
 	password,

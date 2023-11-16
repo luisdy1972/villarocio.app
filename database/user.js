@@ -7,8 +7,7 @@ import {
 	signOut,
 } from 'firebase/auth'
 
-let user = ref({})
-
+const user = ref({})
 const email = ref('')
 const password = ref('')
 
@@ -32,10 +31,8 @@ async function SignInEmail() {
 	try {
 		signInWithEmailAndPassword(auth, email.value, password.value).then(
 			(result) => {
-				// This gives you a Google Access Token. You can use it to access the Google API.
-				const credential = GoogleAuthProvider.credentialFromResult(result)
 				user.value = result.user
-				console.log('Login 👌', user.value)
+				console.log('Login 👌')
 				email.value = ''
 				password.value = ''
 			}
@@ -49,10 +46,8 @@ async function SignInEmail() {
 async function LoginConGoogle() {
 	signInWithPopup(auth, provider)
 		.then((result) => {
-			// This gives you a Google Access Token. You can use it to access the Google API.
-			const credential = GoogleAuthProvider.credentialFromResult(result)
 			user.value = result.user
-			console.log('Login 👌', user.value)
+			console.log('Login 👌')
 		})
 		.catch((error) => {
 			console.log('Login 👎🏻', 'Algo salió mal')
@@ -62,8 +57,7 @@ async function LoginConGoogle() {
 
 async function EndSession() {
 	signOut(auth).then(() => {
-		user.value = {}
-		console.log('Adios ✌', user.value.uid)
+		console.log('Adios ✌')
 	})
 }
 
