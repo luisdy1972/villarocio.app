@@ -32,8 +32,13 @@ async function buscarAncianos() {
 			linkAgenda: doc.data().linkAgenda,
 		}
 		ancianosDB.push(anciano)
-		ancianos.value = ancianosDB
 	})
+	ancianosDB.sort((a, b) => {
+		// retornamos el orden decendente
+		return a.nombre > b.nombre ? -1 : a.nombre < b.nombre ? 1 : 0
+	})
+
+	ancianos.value = ancianosDB
 }
 
 async function guardarAnciano() {

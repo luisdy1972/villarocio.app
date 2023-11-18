@@ -36,9 +36,9 @@ async function buscarPublicadoresPorGrupo(numeroGrupo) {
 	// console.log('Grupo: ' + Number(numeroGrupo))
 	await buscarDocumentos('publicadores', ['grupo', '==', Number(numeroGrupo)])
 		.then((res) => {
-			let pubA = []
-			let pubR = []
-			let pubN = []
+			const pubA = []
+			const pubR = []
+			const pubN = []
 			for (let pub of res) {
 				if (pub.auxiliar) {
 					pubA.push(pub)
@@ -50,6 +50,22 @@ async function buscarPublicadoresPorGrupo(numeroGrupo) {
 					pubN.push(pub)
 				}
 			}
+			const ordenar = (arr) => {
+				arr.sort((a, b) => {
+					console.log(a, b)
+					if (a.nombre > b.nombre) {
+						return 1
+					} else if (a.nombre < b.nombre) {
+						return -1
+					} else {
+						return 0
+					}
+				})
+			}
+			// ordenamos
+			ordenar(pubA)
+			ordenar(pubR)
+			ordenar(pubN)
 			publicadores.value = pubN
 			precursoresA.value = pubA
 			precursoresR.value = pubR

@@ -14,6 +14,10 @@ const nuevoGrupo = ref({
 function buscarGrupos() {
 	buscarDocumentos('grupos')
 		.then((documentos) => {
+			documentos.sort((a, b) => {
+				// retornamos el orden
+				return a.numero > b.numero ? 1 : a.numero < b.numero ? -1 : 0
+			})
 			grupos.value = documentos
 		})
 		.catch((err) => {})
