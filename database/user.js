@@ -32,7 +32,6 @@ async function SignInEmail() {
 	try {
 		signInWithEmailAndPassword(auth, email.value, password.value).then(
 			(result) => {
-				user.value = result.user
 				console.log('Login 👌')
 				email.value = ''
 				password.value = ''
@@ -45,15 +44,7 @@ async function SignInEmail() {
 }
 
 async function LoginConGoogle() {
-	signInWithPopup(auth, provider)
-		.then((result) => {
-			user.value = result.user
-			console.log('Login 👌')
-		})
-		.catch((error) => {
-			console.log('Login 👎🏻', 'Algo salió mal')
-			console.error(error)
-		})
+	return await signInWithPopup(auth, provider)
 }
 
 async function EndSession() {

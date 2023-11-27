@@ -9,11 +9,31 @@ import {
 	EndSession,
 } from '@db'
 import { ref, onMounted } from 'vue'
+
+import { Notification } from '@components'
+
 const password2 = ref('')
+const notification = ref(false)
 
 function registrar() {
 	password2.value = ''
 	SignUpEmail()
+}
+
+async function iniciarSesion() {
+	SignInEmail()
+		.then((result) => {
+			// user.value = result.user
+			notification.value = true
+			setTimeout(() => {
+				notification.value = false
+			}, 5000)
+			console.log('Login 👌')
+		})
+		.catch((error) => {
+			console.log('Login 👎🏻', 'Algo salió mal')
+			console.error(error)
+		})
 }
 
 onMounted(() => {
@@ -106,8 +126,13 @@ onMounted(() => {
 		</div>
 	</nav>
 	<!-- modal Iniciar Sesion -->
+	<Notification
+		v-if="notification"
+		titulo="'¡Bienvenido!'"
+		mensaje="Ha iniciano seción correctamente."
+	></Notification>
 	<form
-		@submit.prevent="SignInEmail()"
+		@submit.prevent="iniciarSesion()"
 		class="modal fade"
 		id="login-modal"
 		tabindex="-1"
