@@ -201,8 +201,8 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="container pt-3">
-		<h3 class="active">Grupo Número {{ params.numero }}</h3>
+	<div class="pt-3 container listados-grupos">
+		<h3>Grupo Número {{ params.numero }}</h3>
 		<Loading v-if="publicadores.length == 0"></Loading>
 		<div v-else>
 			<!--publicadores -->
@@ -211,7 +211,7 @@ onMounted(() => {
 			>
 				<thead class="table-primary">
 					<tr>
-						<th scope="col ">
+						<th scope="col">
 							<div class="d-flex gap-1">
 								<div>Publicadores</div>
 								<div v-if="user.uid">
@@ -261,8 +261,8 @@ onMounted(() => {
 						<th v-if="user.uid" scope="col">
 							<div class="text-center">Estudios</div>
 						</th>
-						<th v-if="user.uid" scope="col">Comentario</th>
-						<th v-if="user.uid" scope="col">Opciones</th>
+						<th v-if="user.uid" scope="col" class="text-center">Nota</th>
+						<th v-if="user.uid" scope="col" class="text-center">Mover</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -427,8 +427,8 @@ onMounted(() => {
 						<th v-if="user.uid" scope="col">
 							<div class="text-center">Estudios</div>
 						</th>
-						<th v-if="user.uid" scope="col">Comentario</th>
-						<th v-if="user.uid" scope="col">Opciones</th>
+						<th v-if="user.uid" scope="col">Nota</th>
+						<th v-if="user.uid" scope="col">Mover</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -606,8 +606,8 @@ onMounted(() => {
 						<th v-if="user.uid" scope="col">
 							<div class="text-center">Estudios</div>
 						</th>
-						<th v-if="user.uid" scope="col">Comentario</th>
-						<th v-if="user.uid" scope="col">Opciones</th>
+						<th v-if="user.uid" scope="col">Nota</th>
+						<th v-if="user.uid" scope="col">Mover</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -805,15 +805,21 @@ onMounted(() => {
 </template>
 
 <style scoped>
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button {
 	-webkit-appearance: none;
-	margin: 0;
 }
+
+input[type='number'] {
+	min-width: 100%;
+}
+
 input {
 	background-color: transparent;
 }
 
+input[type='checkbox'] {
+	cursor: pointer;
+}
 .border-none {
 	border: none;
 }
