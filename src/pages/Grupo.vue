@@ -17,6 +17,13 @@ const precursoresR = ref([])
 
 const editar = ref(true)
 
+const estudiosPublicadores = ref(0) //ok
+
+const horasPrecursoresA = ref(0)
+const estudiosPrecursoresA = ref(0)
+const horasPrecursoresR = ref(0)
+const estudiosPrecursoresR = ref(0)
+
 const nuevoPublicador = ref({
 	nombre: '',
 	bautizado: false,
@@ -30,7 +37,6 @@ const nuevoPublicador = ref({
 	informe: false,
 	ministerial: false,
 })
-const estudiosPublicadores = ref(0)
 
 async function buscarPublicadoresPorGrupo(numeroGrupo) {
 	// console.log('Grupo: ' + Number(numeroGrupo))
@@ -52,7 +58,7 @@ async function buscarPublicadoresPorGrupo(numeroGrupo) {
 			}
 			const ordenar = (arr) => {
 				arr.sort((a, b) => {
-					console.log(a, b)
+					// console.log(a, b)
 					if (a.nombre > b.nombre) {
 						return 1
 					} else if (a.nombre < b.nombre) {
@@ -69,6 +75,7 @@ async function buscarPublicadoresPorGrupo(numeroGrupo) {
 			publicadores.value = pubN
 			precursoresA.value = pubA
 			precursoresR.value = pubR
+			sumarTotales()
 		})
 		.catch((err) => {
 			console.error(err)
@@ -104,16 +111,54 @@ async function agregarPublicador() {
 async function onChange(id, data) {
 	await actualizarDocumento('publicadores', id, data)
 		.then(() => {
-			let estudios = 0
-			for (let i in publicadores.value) {
-				const estudio = publicadores.value[i].estudios
-				estudios += Number(estudio)
-				estudiosPublicadores.value = estudios
-			}
+			sumarTotales()
 		})
 		.catch((err) => {
 			console.error(err)
 		})
+}
+
+function sumarTotales() {
+	// publicadores
+	let estudiosP = 0
+	// auxiliares
+	let horasPA = 0
+	let estudiosPA = 0
+	// regulares
+	let horasPR = 0
+	let estudiosPR = 0
+
+	// suma Publicadores
+	for (let i in publicadores.value) {
+		const estudios = publicadores.value[i].estudios
+		estudiosP += Number(estudios)
+		estudiosPublicadores.value = estudiosP
+	}
+
+	// suma Auxiliares
+	for (let i in precursoresA.value) {
+		const horas = precursoresA.value[i].horas
+		const estudios = precursoresA.value[i].estudios
+
+		horasPA += Number(horas)
+		estudiosPA += Number(estudios)
+
+		horasPrecursoresA.value = horasPA
+		estudiosPrecursoresA.value = estudiosPA
+	}
+	// suma regulares
+	for (let i in precursoresR.value) {
+		const horas = precursoresR.value[i].horas
+		const estudios = precursoresR.value[i].estudios
+
+		horasPR += Number(horas)
+		estudiosPR += Number(estudios)
+
+		horasPrecursoresR.value = horasPR
+		estudiosPrecursoresR.value = estudiosPR
+	}
+
+	// console.log(horasPrecursoresR.value, estudiosPrecursoresR.value)
 }
 
 async function actualizarPrecursor(id, data) {
@@ -137,8 +182,8 @@ function editarCampos() {
 	}
 }
 
-function borrarpublicador(id) {
-	eliminarDocumento('publicadores', id)
+async function borrarpublicador(id) {
+	await eliminarDocumento('publicadores', id)
 		.then((result) => {
 			publicadores.value = []
 			precursoresA.value = []
@@ -154,6 +199,7 @@ onMounted(() => {
 	buscarPublicadoresPorGrupo(params.numero)
 })
 </script>
+
 <template>
 	<div class="container pt-3">
 		<h3 class="active">Grupo Número {{ params.numero }}</h3>
@@ -330,7 +376,7 @@ onMounted(() => {
 					<tr>
 						<th scope="col ">
 							<div class="d-flex gap-1">
-								<div>P. Auxiliares</div>
+								<div>Auxiliares</div>
 								<div v-if="user.uid">
 									<button
 										v-if="editar"
@@ -491,10 +537,10 @@ onMounted(() => {
 						<th>Total</th>
 						<td></td>
 						<td class="text-center">
-							<b>Total</b>
+							<b>{{ horasPrecursoresA }}</b>
 						</td>
 						<td class="text-center">
-							<b>Total</b>
+							<b>{{ estudiosPrecursoresA }}</b>
 						</td>
 						<td></td>
 						<td></td>
@@ -509,7 +555,7 @@ onMounted(() => {
 					<tr>
 						<th scope="col ">
 							<div class="d-flex gap-1">
-								<div>P. Regulares</div>
+								<div>Regulares</div>
 								<div v-if="user.uid">
 									<button
 										v-if="editar"
@@ -658,10 +704,10 @@ onMounted(() => {
 						<th>Total</th>
 						<td></td>
 						<td class="text-center">
-							<b>Total</b>
+							<b>{{ horasPrecursoresR }}</b>
 						</td>
 						<td class="text-center">
-							<b>Total</b>
+							<b>{{ estudiosPrecursoresR }}</b>
 						</td>
 						<td></td>
 						<td></td>
