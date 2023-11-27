@@ -13,32 +13,69 @@ import { ref, onMounted } from 'vue'
 import { Notification } from '@components'
 
 const password2 = ref('')
-const notification = ref(false)
+const notification = ref({ estado: false, mensaje: '', titulo: '' })
 
 function registrar() {
 	password2.value = ''
 	SignUpEmail()
 }
 
+function notificacionEmergente(titulo, mensaje, tipo) {
+	notification.value.estado = true
+	notification.value.titulo = titulo
+	notification.value.mensaje = mensaje
+	notification.value.tipo = tipo
+	setTimeout(() => {
+		notification.value.estado = false
+	}, 6000)
+}
+
 async function iniciarSesion() {
 	SignInEmail()
 		.then((result) => {
-			// user.value = result.user
-			notification.value = true
-			setTimeout(() => {
-				notification.value = false
-			}, 5000)
-			console.log('Login 👌')
+			notificacionEmergente(
+				'¡Bienvenido! 🤝🏼',
+				'Inició sesión correctamente ✔.'
+			)
 		})
 		.catch((error) => {
-			console.log('Login 👎🏻', 'Algo salió mal')
-			console.error(error)
+			notificacionEmergente(
+				'Credenciales incorrectas 🚫',
+				'Verifique el usuario y la contraseña 🔑.',
+				true
+			)
+		})
+}
+async function iniciarSesionGoogle() {
+	LoginConGoogle()
+		.then((result) => {
+			notificacionEmergente(
+				'¡Bienvenido! 🤝🏼',
+				'Inició sesión correctamente ✔.'
+			)
+		})
+		.catch((error) => {
+			notificacionEmergente(
+				'Algo salió mal 🤔',
+				'Vulva a intentarlo o trate de obtener ayuda.',
+				true
+			)
 		})
 }
 
-onMounted(() => {
-	// selector de modales
-})
+async function cerrarSesion() {
+	EndSession()
+		.then(() => {
+			notificacionEmergente(
+				'Saliste de tu cuenta 👋🏼',
+				'Cerraste sesión correctamente; Hasta la proxima 🤝🏼',
+				'alerta'
+			)
+		})
+		.catch((err) => {})
+}
+
+onMounted(() => {})
 </script>
 
 <template>
@@ -100,7 +137,7 @@ onMounted(() => {
 				</svg>
 			</button>
 			<button
-				@click="EndSession()"
+				@click="cerrarSesion()"
 				type="button"
 				class="ms-1 me-1 btn btn-sm btn-danger"
 			>
@@ -127,9 +164,10 @@ onMounted(() => {
 	</nav>
 	<!-- modal Iniciar Sesion -->
 	<Notification
-		v-if="notification"
-		titulo="'¡Bienvenido!'"
-		mensaje="Ha iniciano seción correctamente."
+		v-if="notification.estado"
+		:titulo="notification.titulo"
+		:mensaje="notification.mensaje"
+		:tipo="notification.tipo"
 	></Notification>
 	<form
 		@submit.prevent="iniciarSesion()"
@@ -155,7 +193,7 @@ onMounted(() => {
 				<div class="modal-body">
 					<button
 						type="button"
-						@click="LoginConGoogle()"
+						@click="iniciarSesionGoogle()"
 						class="btn btn-primary"
 						role="button"
 						data-bs-dismiss="modal"

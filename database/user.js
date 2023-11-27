@@ -24,23 +24,12 @@ async function SignUpEmail() {
 		)
 	} catch (error) {
 		console.error(error)
-		alert('Email ya fué registrado o no es valido')
+		alert('Email ya fué registrado o no es valido.')
 	}
 }
 
 async function SignInEmail() {
-	try {
-		signInWithEmailAndPassword(auth, email.value, password.value).then(
-			(result) => {
-				console.log('Login 👌')
-				email.value = ''
-				password.value = ''
-			}
-		)
-	} catch (error) {
-		console.error('Usuario o contraseña incorrecta')
-		console.error(error)
-	}
+	return await signInWithEmailAndPassword(auth, email.value, password.value)
 }
 
 async function LoginConGoogle() {
@@ -48,9 +37,7 @@ async function LoginConGoogle() {
 }
 
 async function EndSession() {
-	signOut(auth).then(() => {
-		console.log('Adios ✌')
-	})
+	return await signOut(auth)
 }
 
 export {
