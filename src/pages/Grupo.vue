@@ -294,6 +294,7 @@ onMounted(() => {
 									@input="
 										onChange(publicador.id, { estudios: publicador.estudios })
 									"
+                  placeholder="0"
 									class="form-control border-none text-center input-estudios"
 								/>
 							</div>
@@ -459,6 +460,7 @@ onMounted(() => {
 									v-model="publicador.horas"
 									@input="onChange(publicador.id, { horas: publicador.horas })"
 									class="form-control border-none text-center input-estudios"
+                  placeholder="0"
 								/>
 							</div>
 						</td>
@@ -471,6 +473,7 @@ onMounted(() => {
 										onChange(publicador.id, { estudios: publicador.estudios })
 									"
 									class="form-control border-none text-center input-estudios"
+                  placeholder="0"
 								/>
 							</div>
 						</td>
@@ -638,6 +641,7 @@ onMounted(() => {
 									v-model="publicador.horas"
 									@input="onChange(publicador.id, { horas: publicador.horas })"
 									class="form-control border-none text-center input-estudios"
+                  placeholder="0"
 								/>
 							</div>
 						</td>
@@ -650,6 +654,7 @@ onMounted(() => {
 										onChange(publicador.id, { estudios: publicador.estudios })
 									"
 									class="form-control border-none text-center input-estudios"
+                  placeholder="0"
 								/>
 							</div>
 						</td>
